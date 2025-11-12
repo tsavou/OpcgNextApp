@@ -1,0 +1,14 @@
+name: check-eslint-and-prettier
+run-name: ${{ github.actor }} is checking ESLint and Prettier
+on: [push]
+jobs:
+  check-eslint-and-prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
