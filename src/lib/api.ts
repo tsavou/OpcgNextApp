@@ -1,4 +1,4 @@
-import { Card, CardsResponse, CardFilters } from "@/types/card";
+import { Card, CardsResponse, CardFilters } from "@/app/cards/types/card";
 
 const API_BASE_URL = "https://optcgapi.com/api";
 
@@ -84,6 +84,7 @@ export async function fetchAllCards(): Promise<Card[]> {
           `Impossible de récupérer les cartes du set ${set.id || set.set_id}:`,
           error,
         );
+        throw error;
       }
     }
 
@@ -154,7 +155,7 @@ export async function fetchCards(
     // Appliquer le tri
     if (filters?.sortBy) {
       filteredCards.sort((a, b) => {
-        let aValue: any, bValue: any;
+        let aValue: string | undefined, bValue: string | undefined;
 
         switch (filters.sortBy) {
           case "name":

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Card } from "@/types/card";
+import { Card } from "@/app/cards/types/card";
 import Link from "next/link";
 
 interface CardItemProps {
@@ -27,23 +27,6 @@ export function CardItem({ card }: CardItemProps) {
         return "bg-red-100 text-red-800";
       default:
         return "bg-gray-100 text-gray-800";
-    }
-  };
-
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case "LEADER":
-        return "bg-red-500";
-      case "CHARACTER":
-        return "bg-blue-500";
-      case "EVENT":
-        return "bg-green-500";
-      case "STAGE":
-        return "bg-purple-500";
-      case "DON":
-        return "bg-yellow-500";
-      default:
-        return "bg-gray-500";
     }
   };
 
@@ -76,53 +59,37 @@ export function CardItem({ card }: CardItemProps) {
             {card.rarity}
           </span>
         </div>
-
-        {/* Badge de type */}
-        <div className="absolute top-2 right-2">
-          <span
-            className={`rounded-full px-2 py-1 text-xs font-semibold text-white ${getTypeColor(card.card_type)}`}
-          >
-            {card.card_type}
-          </span>
-        </div>
       </div>
 
       {/* Informations de la carte */}
       <div className="p-3">
-        <h3 className="mb-1 line-clamp-2 text-sm font-semibold text-gray-900">
+        <h3 className="mb-2 line-clamp-2 text-sm font-semibold text-gray-900">
           {card.card_name}
         </h3>
 
-        <div className="mb-2 flex items-center justify-between text-xs text-gray-600">
-          <span>{card.set_name || "Set inconnu"}</span>
-          {card.card_cost && card.card_cost !== "NULL" && (
-            <span className="font-medium">Coût: {card.card_cost}</span>
+        <div className="space-y-1 text-xs text-gray-600">
+          <div>
+            <span className="font-medium">Set: </span>
+            <span>{card.set_name || "Set inconnu"}</span>
+          </div>
+
+          <div>
+            <span className="font-medium">ID Set: </span>
+            <span>{card.set_id || card.card_set_id}</span>
+          </div>
+
+          <div>
+            <span className="font-medium">ID Carte: </span>
+            <span>{card.card_image_id}</span>
+          </div>
+
+          {card.market_price > 0 && (
+            <div>
+              <span className="font-medium">Prix: </span>
+              <span>{card.market_price}€</span>
+            </div>
           )}
         </div>
-
-        {/* Stats */}
-        {(card.card_power && card.card_power !== "NULL") ||
-        card.counter_amount > 0 ? (
-          <div className="flex items-center gap-2 text-xs">
-            {card.card_power && card.card_power !== "NULL" && (
-              <span className="rounded bg-red-100 px-2 py-1 text-red-800">
-                Puissance: {card.card_power}
-              </span>
-            )}
-            {card.counter_amount > 0 && (
-              <span className="rounded bg-blue-100 px-2 py-1 text-blue-800">
-                Contre: {card.counter_amount}
-              </span>
-            )}
-          </div>
-        ) : null}
-
-        {/* Prix */}
-        {card.market_price > 0 && (
-          <div className="mt-2 text-xs text-gray-600">
-            <span className="font-medium">Prix: {card.market_price}€</span>
-          </div>
-        )}
       </div>
     </Link>
   );

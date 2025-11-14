@@ -1,8 +1,8 @@
-import { useCards } from "@/hooks/useCards";
+import { useCardListSuspenseQuery } from "@/app/cards/hooks/queries/useCardListSuspenseQuery";
 import { CardItem } from "./CardItem";
 
 export function CardGrid() {
-  const { data } = useCards();
+  const { data } = useCardListSuspenseQuery();
   const cards = data?.data || [];
 
   if (cards.length === 0) {
