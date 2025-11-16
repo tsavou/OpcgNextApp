@@ -1,26 +1,42 @@
-import { useCardListSuspenseQuery } from "@/app/cards/hooks/queries/useCardListSuspenseQuery";
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import { useCardsSuspenseQuery } from "@/app/cards/hooks/queries/useCardsSuspenseQuery";
 import { CardItem } from "./CardItem";
+import { getCardUniqueId } from "../helpers/card";
 
 export function CardGrid() {
-  const { data } = useCardListSuspenseQuery();
-  const cards = data?.data || [];
+  const searchParams = useSearchParams();
+  const setId = searchParams.get("setId");
+  const setName = searchParams.get("setName");
+  const title = setId && setName ? `${setId}: ${setName}` : "Toutes les cartes";
 
-  if (cards.length === 0) {
+  const { data: cards } = useCardsSuspenseQuery(setId);
+
+  if (!cards || cards.length === 0) {
     return (
       <div className="flex items-center justify-center p-8">
         <div className="text-center">
           <div className="mb-2 text-lg text-gray-400">🔍</div>
-          <p className="text-gray-600">Aucune carte trouvée</p>
+          <p className="text-gray-600">
+            {setId
+              ? "Aucune carte trouvée pour ce set"
+              : "Aucune carte trouvée"}
+          </p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-      {cards.map((card) => (
-        <CardItem key={card.card_image_id ?? card.card_name} card={card} />
-      ))}
+    <div>
+      <h2 className="mb-4 text-xl font-semibold text-gray-800">{title}</h2>
+
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        {cards.map((card) => (
+          <CardItem key={getCardUniqueId(card)} card={card} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Card } from "@/app/cards/types/card";
 import Link from "next/link";
+import { getCardUniqueId, getRarityColor } from "../helpers/card";
 
 interface CardItemProps {
   card: Card;
@@ -9,30 +10,11 @@ interface CardItemProps {
 }
 
 export function CardItem({ card }: CardItemProps) {
-  const getRarityColor = (rarity: string) => {
-    switch (rarity) {
-      case "C":
-        return "bg-gray-100 text-gray-800";
-      case "UC":
-        return "bg-green-100 text-green-800";
-      case "R":
-        return "bg-blue-100 text-blue-800";
-      case "SR":
-        return "bg-purple-100 text-purple-800";
-      case "SEC":
-        return "bg-yellow-100 text-yellow-800";
-      case "P":
-        return "bg-pink-100 text-pink-800";
-      case "L":
-        return "bg-red-100 text-red-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
+  const cardUniqueId = getCardUniqueId(card);
 
   return (
     <Link
-      href={`/cards/${card.card_set_id}`}
+      href={`/cards/${card.card_set_id}?cardId=${encodeURIComponent(cardUniqueId)}`}
       className={`cursor-pointer overflow-hidden rounded-lg bg-white shadow-md transition-shadow hover:shadow-lg`}
     >
       {/* Image de la carte */}

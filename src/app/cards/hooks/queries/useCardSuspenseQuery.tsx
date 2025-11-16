@@ -1,4 +1,4 @@
-import { fetchCardById } from "@/lib/api";
+import { fetchCardById } from "@/lib/api/api";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 export function useCardSuspenseQuery(cardId: string) {

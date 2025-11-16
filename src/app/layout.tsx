@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Header } from "../_components/Header";
+import { Header } from "./_components/Header";
 import { Providers } from "../lib/providers";
 import "./globals.css";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";

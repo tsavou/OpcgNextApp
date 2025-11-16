@@ -1,69 +1,30 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useCardSuspenseQuery } from "../../hooks/queries/useCardSuspenseQuery";
+import { Card } from "../../types/card";
+import {
+  getCardUniqueId,
+  getRarityColor,
+  getTypeColor,
+  getColorBadge,
+} from "../../helpers/card";
 
-export function CardDetailContent({ cardId }: { cardId: string }) {
-  const { data: cards } = useCardSuspenseQuery(cardId);
+export function CardDetailContent({
+  cardSetId,
+  cardUniqueId,
+}: {
+  cardSetId: string;
+  cardUniqueId: string | null;
+}) {
+  const { data: cards } = useCardSuspenseQuery(cardSetId);
 
-  // Prendre la première carte comme carte principale (ou celle avec le prix le plus bas)
-  const mainCard = cards[0];
-
-  const getRarityColor = (rarity: string) => {
-    switch (rarity) {
-      case "C":
-        return "bg-gray-100 text-gray-800";
-      case "UC":
-        return "bg-green-100 text-green-800";
-      case "R":
-        return "bg-blue-100 text-blue-800";
-      case "SR":
-        return "bg-purple-100 text-purple-800";
-      case "SEC":
-        return "bg-yellow-100 text-yellow-800";
-      case "P":
-        return "bg-pink-100 text-pink-800";
-      case "L":
-        return "bg-red-100 text-red-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
-
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case "LEADER":
-        return "bg-red-500";
-      case "CHARACTER":
-        return "bg-blue-500";
-      case "EVENT":
-        return "bg-green-500";
-      case "STAGE":
-        return "bg-purple-500";
-      case "DON":
-        return "bg-yellow-500";
-      default:
-        return "bg-gray-500";
-    }
-  };
-
-  const getColorBadge = (color: string) => {
-    switch (color) {
-      case "RED":
-        return "bg-red-500";
-      case "GREEN":
-        return "bg-green-500";
-      case "BLUE":
-        return "bg-blue-500";
-      case "PURPLE":
-        return "bg-purple-500";
-      case "BLACK":
-        return "bg-black";
-      case "YELLOW":
-        return "bg-yellow-500";
-      default:
-        return "bg-gray-500";
-    }
-  };
+  // Trouver la carte spécifique
+  const mainCard = cardUniqueId
+    ? cards.find((card: Card) => {
+        const uniqueId = getCardUniqueId(card);
+        return uniqueId === cardUniqueId;
+      }) || cards[0]
+    : cards[0];
 
   return (
     <div className="container mx-auto px-4 py-6">
@@ -287,53 +248,60 @@ export function CardDetailContent({ cardId }: { cardId: string }) {
                   Variantes disponibles ({cards.length})
                 </h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  {cards.map((card, index) => (
-                    <div
-                      key={index}
-                      className={`rounded-lg border-2 p-4 ${
-                        index === 0
-                          ? "border-blue-500 bg-blue-50"
-                          : "border-gray-200 bg-gray-50"
-                      }`}
-                    >
-                      <div className="mb-2 flex items-center justify-between">
-                        <h4 className="font-medium text-gray-900">
-                          {card.card_name}
-                        </h4>
-                        {index === 0 && (
-                          <span className="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-800">
-                            Principale
-                          </span>
-                        )}
-                      </div>
-                      <div className="grid grid-cols-2 gap-2 text-sm">
-                        <div>
-                          <span className="text-gray-600">Prix moyen:</span>
-                          <span className="ml-1 font-medium">
-                            {card.market_price}€
-                          </span>
+                  {cards.map((card, index) => {
+                    const variantUniqueId = getCardUniqueId(card);
+                    const isCurrentVariant = cardUniqueId === variantUniqueId;
+                    const variantUrl = `/cards/${card.card_set_id}?cardId=${encodeURIComponent(variantUniqueId)}`;
+
+                    return (
+                      <Link
+                        key={index}
+                        href={variantUrl}
+                        className={`block rounded-lg border-2 p-4 transition-all hover:shadow-md ${
+                          isCurrentVariant
+                            ? "border-blue-500 bg-blue-50"
+                            : "border-gray-200 bg-gray-50 hover:border-gray-300"
+                        }`}
+                      >
+                        <div className="mb-2 flex items-center justify-between">
+                          <h4 className="font-medium text-gray-900">
+                            {card.card_name}
+                          </h4>
+                          {isCurrentVariant && (
+                            <span className="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-800">
+                              Actuelle
+                            </span>
+                          )}
                         </div>
-                        <div>
-                          <span className="text-gray-600">Rareté:</span>
-                          <span className="ml-1 font-medium">
-                            {card.rarity}
-                          </span>
+                        <div className="grid grid-cols-2 gap-2 text-sm">
+                          <div>
+                            <span className="text-gray-600">Prix moyen:</span>
+                            <span className="ml-1 font-medium">
+                              {card.market_price}€
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-gray-600">Rareté:</span>
+                            <span className="ml-1 font-medium">
+                              {card.rarity}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-gray-600">ID:</span>
+                            <span className="ml-1 font-medium">
+                              {card.card_set_id}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-gray-600">Type:</span>
+                            <span className="ml-1 font-medium">
+                              {card.card_type}
+                            </span>
+                          </div>
                         </div>
-                        <div>
-                          <span className="text-gray-600">ID:</span>
-                          <span className="ml-1 font-medium">
-                            {card.card_set_id}
-                          </span>
-                        </div>
-                        <div>
-                          <span className="text-gray-600">Type:</span>
-                          <span className="ml-1 font-medium">
-                            {card.card_type}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
             )}
