@@ -15,7 +15,7 @@ export function SetBanner() {
 
   return (
     <div
-      className={`bg-gradient-to-br ${getSetColor(setId)} mb-6 h-fit w-full overflow-hidden py-4 shadow-lg`}
+      className={`bg-gradient-to-br ${getSetColor(setId)} mb-6 max-h-80 w-full overflow-hidden py-4 shadow-lg`}
     >
       <Image
         src={getSetImage(setId)}

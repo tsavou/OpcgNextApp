@@ -32,6 +32,7 @@ export default function RootLayout({
     <html lang="fr">
       <Providers>
         <body
+          suppressHydrationWarning={true}
           className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
         >
           <ReactQueryDevtools />

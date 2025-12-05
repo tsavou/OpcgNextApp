@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Card } from "../../types/card";
 
 interface CardHeaderProps {
@@ -8,6 +8,7 @@ interface CardHeaderProps {
 
 export function CardHeader({ card }: CardHeaderProps) {
   const t = useTranslations("cardDetail");
+  const locale = useLocale();
 
   return (
     <div className="space-y-3">
@@ -33,7 +34,7 @@ export function CardHeader({ card }: CardHeaderProps) {
         <div className="flex items-center gap-1">
           <span>{t("lastUpdate")}</span>
           <span className="font-medium">
-            {new Date(card.date_scraped).toLocaleDateString()}
+            {new Date(card.date_scraped).toLocaleDateString(locale || "fr-FR")}
           </span>
         </div>
       </div>

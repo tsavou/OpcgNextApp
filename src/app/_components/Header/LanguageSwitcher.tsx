@@ -1,13 +1,12 @@
 "use client";
 
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { Languages } from "lucide-react";
 import { useState } from "react";
 
 export function LanguageSwitcher() {
   const router = useRouter();
-  const pathname = usePathname();
   const locale = useLocale();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -20,10 +19,8 @@ export function LanguageSwitcher() {
     languages.find((lang) => lang.code === locale) || languages[0];
 
   const switchLanguage = async (newLocale: string) => {
-    // Set cookie
     document.cookie = `locale=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
     setIsOpen(false);
-    // Reload to apply new locale
     router.refresh();
   };
 
