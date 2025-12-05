@@ -1,0 +1,11 @@
+{
+  "title": "OnePiece TCG Manager",
+  "setsTitle": "Tous les sets disponibles",
+  "description": "Découvrez tous les cartes du TCG One Piece. Rejoignez LogPoseCards pour créer et gérer votre collection de cartes, suivre la valeur de vos cartes et plus encore !",
+  "errorLoadingSets": "Erreur lors du chargement des sets",
+  "errorLoadingCards": "Erreur lors du chargement des cartes",
+  "seeAllCards": "Voir toutes les cartes",
+  "exploreSets": "Explorer les sets",
+  "joinUs": "Rejoindre LogPose",
+  "noSetsFound": "Aucun set trouvé"
+}

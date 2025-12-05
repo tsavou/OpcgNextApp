@@ -1,43 +1,30 @@
-"use client";
-
 import { SetGrid } from "@/app/sets/_components/SetGrid";
 import { SetGridSkeleton } from "@/app/sets/_components/SetGridSkeleton";
 import { Hero } from "@/app/_components/Hero";
-import { ErrorFallback } from "@/app/_components/ErrorFallback";
-import { QueryErrorResetBoundary } from "@tanstack/react-query";
-import { Suspense } from "react";
-import { ErrorBoundary } from "react-error-boundary";
+import { useTranslations } from "next-intl";
+import { AsyncBoundary } from "./_components/AsyncBoundary";
 
 export default function Home() {
+  const t = useTranslations("homePage");
   return (
     <div className="w-full">
       <Hero />
 
-      <section id="sets" className="container mx-auto px-4 py-16">
-        <div className="mb-12 text-center">
-          <h2 className="mb-4 text-4xl font-bold text-gray-900">
-            Tous les sets disponibles
+      <section id="sets" className="container mx-auto px-4 py-12">
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold">
+            <span className="bg-gradient-to-r from-yellow-600 to-yellow-400 bg-clip-text text-transparent">
+              {t("setsTitle")}
+            </span>
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-gray-600">
-            Découvrez tous les sets de cartes One Piece TCG et explorez leurs
-            collections
-          </p>
         </div>
 
-        <QueryErrorResetBoundary>
-          <ErrorBoundary
-            FallbackComponent={(props) => (
-              <ErrorFallback
-                {...props}
-                title="Erreur lors du chargement des sets"
-              />
-            )}
-          >
-            <Suspense fallback={<SetGridSkeleton />}>
-              <SetGrid />
-            </Suspense>
-          </ErrorBoundary>
-        </QueryErrorResetBoundary>
+        <AsyncBoundary
+          loadingFallback={<SetGridSkeleton />}
+          errorTitle={t("errorLoadingSets")}
+        >
+          <SetGrid />
+        </AsyncBoundary>
       </section>
     </div>
   );

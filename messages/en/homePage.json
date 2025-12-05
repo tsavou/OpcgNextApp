@@ -1,0 +1,11 @@
+{
+  "title": "LogPoseCards - One Piece TCG Manager",
+  "setsTitle": "All sets available",
+  "description": "Discover all One Piece TCG sets and explore their collections",
+  "errorLoadingSets": "Error loading sets",
+  "errorLoadingCards": "Error loading cards",
+  "seeAllCards": "See all cards",
+  "exploreSets": "Explore sets",
+  "joinUs": "Join LogPoseCards",
+  "noSetsFound": "No sets found"
+}

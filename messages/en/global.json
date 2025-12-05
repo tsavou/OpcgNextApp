@@ -1,0 +1,16 @@
+{
+  "home": "Home",
+  "sets": "Sets",
+  "cards": "Cards",
+  "decks": "Decks",
+  "collection": "Collection",
+  "settings": "Settings",
+  "logout": "Logout",
+  "login": "Login",
+  "register": "Sign up",
+  "profile": "Profile",
+  "account": "Account",
+  "errorLoading": "Error loading sets",
+  "retry": "Retry",
+  "error": "An error occurred"
+}

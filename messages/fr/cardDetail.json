@@ -1,0 +1,15 @@
+{
+  "noImage": "Pas d'image",
+  "lastUpdate": "Dernière mise à jour:",
+  "marketPrice": "Prix du marché",
+  "viewOnCardmarket": "Voir sur Cardmarket",
+  "averagePrice": "Prix moyen",
+  "inventoryPrice": "Prix inventaire",
+  "availableVariants": "Variantes disponibles",
+  "current": "Actuelle",
+  "averagePriceLabel": "Prix moyen:",
+  "setLabel": "Set:",
+  "startingFrom": "À partir de :",
+  "noCardsFound": "Aucune carte trouvée",
+  "noCardsFoundForSet": "Aucune carte trouvée pour le set {setId} ({setName})"
+}

@@ -53,15 +53,15 @@ export function getRarityColor(rarity: CardRarity | string): string {
  */
 export function getTypeColor(type: CardType | string): string {
   switch (type) {
-    case "LEADER":
+    case "Leader":
       return "bg-red-500";
-    case "CHARACTER":
+    case "Character":
       return "bg-blue-500";
-    case "EVENT":
+    case "Event":
       return "bg-green-500";
-    case "STAGE":
+    case "Stage":
       return "bg-purple-500";
-    case "DON":
+    case "Don":
       return "bg-yellow-500";
     default:
       return "bg-gray-500";
@@ -75,17 +75,17 @@ export function getTypeColor(type: CardType | string): string {
  */
 export function getColorBadge(color: CardColor | string): string {
   switch (color) {
-    case "RED":
+    case "Red":
       return "bg-red-500";
-    case "GREEN":
+    case "Green":
       return "bg-green-500";
-    case "BLUE":
+    case "Blue":
       return "bg-blue-500";
-    case "PURPLE":
+    case "Purple":
       return "bg-purple-500";
-    case "BLACK":
+    case "Black":
       return "bg-black";
-    case "YELLOW":
+    case "Yellow":
       return "bg-yellow-500";
     default:
       return "bg-gray-500";

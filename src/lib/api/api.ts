@@ -1,9 +1,9 @@
-import { Card, CardsResponse, CardFilters } from "@/app/cards/types/card";
+import { Card } from "@/app/cards/types/card";
 import { fetchAllSets, fetchSetCards } from "./sets";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-// Fonction pour récupérer une carte spécifique par son ID
+// Fonction pour récupérer une carte spécifique par son ID (renvoie plusieurs versions/variantes de la carte)
 export async function fetchCardById(cardId: string): Promise<Card[]> {
   try {
     const response = await fetch(`${API_BASE_URL}/sets/card/${cardId}/`);

@@ -7,6 +7,7 @@ export function useSetListSuspenseQuery() {
     queryKey: ["sets"],
     queryFn: () => {
       console.log("fetching sets...");
+      // throw new Error("Erreur 500 - simulation");
       return fetchAllSets();
     },
   });
