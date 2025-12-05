@@ -1,0 +1,16 @@
+{
+  "home": "Accueil",
+  "sets": "Sets",
+  "cards": "Cartes",
+  "decks": "Decks",
+  "collection": "Collection",
+  "settings": "Settings",
+  "logout": "Se déconnecter",
+  "login": "Se connecter",
+  "register": "S'inscrire",
+  "profile": "Profil",
+  "account": "Compte",
+  "errorLoading": "Erreur lors du chargement des sets",
+  "retry": "Réessayer",
+  "error": "Une erreur est survenue"
+}
