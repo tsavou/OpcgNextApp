@@ -1,9 +1,10 @@
 import { Card, CardSet } from "@/app/cards/types/card";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export async function fetchAllSets(): Promise<CardSet[]> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/allSets/`,
+      `${API_BASE_URL}/allSets/`,
     );
 
     if (!response.ok) {
@@ -21,7 +22,7 @@ export async function fetchAllSets(): Promise<CardSet[]> {
 export async function fetchSetCards(setId: string): Promise<Card[]> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sets/${setId}/`,
+        `${API_BASE_URL}/sets/${setId}/`,
     );
 
     if (!response.ok) {

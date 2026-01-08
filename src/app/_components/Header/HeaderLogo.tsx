@@ -7,7 +7,8 @@ export function HeaderLogo() {
       href="/"
       className="flex items-center gap-2 text-xl font-bold transition-opacity"
     >
-      <Image src="/images/logpose.png" alt="Logo" width={100} height={100} />
+      <Image src="/images/logo.png" alt="Logo" width={64} height={64} />
+      <Image src="/images/logo-brand.png" alt="Logo" width={136} height={64} />
     </Link>
   );
 }

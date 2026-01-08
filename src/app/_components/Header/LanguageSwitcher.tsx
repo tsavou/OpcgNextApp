@@ -19,9 +19,15 @@ export function LanguageSwitcher() {
     languages.find((lang) => lang.code === locale) || languages[0];
 
   const switchLanguage = async (newLocale: string) => {
-    document.cookie = `locale=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
-    setIsOpen(false);
-    router.refresh();
+    try {
+      await cookieStore.set("locale", newLocale);
+      setIsOpen(false);
+      router.refresh();
+    } catch (error) {
+      console.error("Erreur lors du changement de langue:", error);
+      setIsOpen(false);
+      router.refresh();
+    }
   };
 
   return (
