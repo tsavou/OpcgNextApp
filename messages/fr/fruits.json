@@ -1,0 +1,26 @@
+{
+    "form": {
+     "fruitField": {
+      "errors": {
+       "empty": "Veuillez fournir un fruit"
+      },
+      "label": "Le bon fruit à ajouter"
+     },
+     "quantityField": {
+      "errors": {
+       "sign": "Veuillez fournir une quantité supérieure à zéro",
+       "type": "Veuillez fournir une quantité valide"
+      },
+      "label": "La quantité de fruits"
+     },
+     "submitButton": {
+      "label": "Soumettre",
+      "loadingLabel": "Ça charge..."
+     }
+    },
+    "list": {
+     "noFruits": "Pas encore de fruits",
+     "title": "Fruits disponibles :"
+    }
+   }
+    

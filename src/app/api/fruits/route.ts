@@ -1,42 +1,37 @@
 import { NextRequest, NextResponse } from "next/server";
+
 /**
+ * Ça va ressembler à ça :
  * {
- *   "apple": 10,
- *   "banana": 20,
- *   "cherry": 30,
+ *   bananes: 4,
+ *   fraises: 2,
  * }
  */
 const fruitStore = new Map<string, number>();
 
 export async function GET() {
-  return new NextResponse(JSON.stringify(Object.fromEntries(fruitStore)), {
-    status: 200,
-  });
+	return new NextResponse(JSON.stringify(Object.fromEntries(fruitStore)), {
+		status: 200,
+	});
 }
 
 export interface PostFruitPayload {
-  fruit: string;
-  quantity: number;
+	fruit: string;
+	quantity: number;
 }
 
 /**
- * envoi un payload avec un furit et une quantité
- * et ajoute le fruit et la quantité au fruitStore
- * et retourne le fruitStore
+ * On va envoyer un payload avec un fruit et une quantité,
+ * que l'on va ajouter au `fruitStore`.
  */
 export async function POST(req: NextRequest) {
-  const data: PostFruitPayload = await req.json();
-  // normalment on devrait valider que la donnée est valide et donc de type PostFruitPayload
-  // sinon on retourne une erreur
-  const { fruit, quantity } = data;
-  fruitStore.set(fruit, (fruitStore.get(fruit) ?? 0) + quantity);
-  return new NextResponse(JSON.stringify(Object.fromEntries(fruitStore)), {
-    status: 200,
-  });
+	const data: PostFruitPayload = await req.json();
+	// En vrai, on valide que la donnée est bien de type `PostFruitPayload`.
+	// Sinon, on retourne une bonne erreur.
+	const { fruit, quantity } = data;
+	fruitStore.set(fruit, (fruitStore.get(fruit) ?? 0) + quantity);
+	console.log(JSON.stringify(Object.fromEntries(fruitStore)));
+	return new NextResponse(JSON.stringify(Object.fromEntries(fruitStore)), {
+		status: 200,
+	});
 }
-
-// export async function DELETE(req: NextRequest) {
-//   const { fruit } = await req.json();
-//   fruitStore.delete(fruit);
-//   return new NextResponse(JSON.stringify(fruitStore), { status: 200 });
-// }

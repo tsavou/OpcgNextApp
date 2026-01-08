@@ -1,22 +1,25 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import z from "zod";
 
-const FruitFormSchema = z
-  .object({
-    fruit: z
-      .string("Veuillez entrer un nom de fruit")
-      .nonempty("Veuillez fournir un nom de fruit"),
-    quantity: z.coerce
-      .number("Veuillez entrer une quantité")
-      .positive("Veuillez entrer une quantité positive"),
-  })
-  .required();
+function createFruitFormSchema(
+	t: ReturnType<typeof useTranslations<"fruits.form">>,
+) {
+	return z.object({
+		fruit: z.string().min(1, t("fruitField.errors.empty")),
+		quantity: z.coerce
+			.number<number>(t("quantityField.errors.type"))
+			.positive(t("quantityField.errors.sign")),
+	});
+}
 
-export type FruitFormData = z.infer<typeof FruitFormSchema>;
+export type FruitFormFields = z.infer<ReturnType<typeof createFruitFormSchema>>;
 
 export function useFruitForm() {
-  return useForm({
-    resolver: zodResolver(FruitFormSchema),
-  });
+	const t = useTranslations("fruits.form");
+
+	return useForm<FruitFormFields>({
+		resolver: zodResolver(createFruitFormSchema(t)),
+	});
 }

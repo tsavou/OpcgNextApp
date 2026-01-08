@@ -1,0 +1,26 @@
+{
+    "form": {
+     "fruitField": {
+      "errors": {
+       "empty": "Please provide a fruit"
+      },
+      "label": "The good fruit to add"
+     },
+     "quantityField": {
+      "errors": {
+       "sign": "Please provide a quantity greater than zero",
+       "type": "Please provide a valid quantity"
+      },
+      "label": "The quantity of fruits"
+     },
+     "submitButton": {
+      "label": "Submit",
+      "loadingLabel": "It's loading..."
+     }
+    },
+    "list": {
+     "noFruits": "No fruits yet",
+     "title": "Fruits available:"
+    }
+   }
+    
