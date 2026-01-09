@@ -10,7 +10,7 @@ export function CardDetailSkeleton() {
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           <div className="space-y-4">
-            <Skeleton aspectRatio="3/4" rounded="lg" />
+            <Skeleton height={500} width={375} rounded="lg" />
 
             <div className="flex flex-wrap gap-2">
               <Skeleton height={32} width={64} rounded="full" />

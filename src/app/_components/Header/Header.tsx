@@ -24,7 +24,7 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-sky-900 shadow-lg backdrop-blur-sm">
+    <header className="sticky top-0 z-50 w-full bg-slate-900 shadow-lg backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <HeaderLogo />
 

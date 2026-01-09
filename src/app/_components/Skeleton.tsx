@@ -41,7 +41,7 @@ export function Skeleton({
   return (
     <div
       className={cn(
-        "animate-pulse bg-gray-200",
+        "animate-pulse bg-slate-700",
         roundedClasses[rounded],
         aspectRatioClass,
         className,

@@ -34,7 +34,7 @@ export function MobileMenu({
         <NavLinks
           links={links}
           onLinkClick={onLinkClick}
-          linkClassName="block rounded-lg px-4 py-2 text-base font-semibold text-gray-200 transition-colors hover:bg-sky-800 hover:text-yellow-400"
+          linkClassName="cursor-pointer block rounded-lg px-4 py-2 text-base font-semibold text-gray-200 transition-colors hover:bg-sky-800 hover:text-yellow-400"
         />
         <div className="mt-4 border-t border-sky-800 pt-4">
           {isAuthenticated ? (
@@ -47,7 +47,7 @@ export function MobileMenu({
             <AuthButtons onLinkClick={onLinkClick} variant="mobile" />
           )}
         </div>
-        <div className="mt-4 border-t border-gray-200 pt-4">
+        <div className="mt-4 border-t border-sky-800 pt-4">
           <LanguageSwitcher />
         </div>
       </nav>

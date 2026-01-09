@@ -5,6 +5,7 @@ import { useRegisterMutation } from "../../_hooks/queries/mutations/use-register
 import { SubmitHandler } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { UserPlus } from "lucide-react";
+import Link from "next/link";
 
 export function RegisterForm() {
   const t = useTranslations("global");
@@ -21,102 +22,116 @@ export function RegisterForm() {
   };
 
   return (
-    <form
-      onSubmit={form.handleSubmit(onSubmit)}
-      className="flex w-full max-w-md flex-col gap-6 rounded-2xl border border-gray-100 bg-white p-8 shadow-2xl md:p-10"
-    >
-      <div className="text-center">
-        <h1 className="text-3xl font-extrabold tracking-tight text-sky-950">
+    <div className="w-full max-w-md space-y-8 text-center lg:text-left">
+      <div className="space-y-4">
+        <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
           {t("register")}
         </h1>
-        <p className="mt-2 text-sm text-gray-500">
+        <p className="text-lg text-slate-400">
           Commencez votre aventure sur LogPoseCards !
         </p>
       </div>
 
-      {error && (
-        <div className="animate-in fade-in slide-in-from-top-1 rounded-xl bg-red-50 p-4 text-sm font-medium text-red-600 ring-1 ring-inset ring-red-200">
-          {error.message || t("error")}
-        </div>
-      )}
-
-      <div className="space-y-4">
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="email" className="text-sm font-semibold text-gray-700">
-            {t("email")}
-          </label>
-          <input
-            id="email"
-            type="email"
-            placeholder={t("emailPlaceholder")}
-            className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all placeholder:text-gray-400 focus:border-sky-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-sky-500/10"
-            {...form.register("email")}
-          />
-          {form.formState.errors.email && (
-            <p className="text-xs font-medium text-red-500">
-              {form.formState.errors.email.message}
-            </p>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-1.5">
-          <label
-            htmlFor="password"
-            className="text-sm font-semibold text-gray-700"
-          >
-            {t("password")}
-          </label>
-          <input
-            id="password"
-            type="password"
-            placeholder={t("passwordPlaceholder")}
-            className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all placeholder:text-gray-400 focus:border-sky-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-sky-500/10"
-            {...form.register("password")}
-          />
-          {form.formState.errors.password && (
-            <p className="text-xs font-medium text-red-500">
-              {form.formState.errors.password.message}
-            </p>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-1.5">
-          <label
-            htmlFor="confirmPassword"
-            className="text-sm font-semibold text-gray-700"
-          >
-            {t("confirmPassword")}
-          </label>
-          <input
-            id="confirmPassword"
-            type="password"
-            placeholder={t("confirmPasswordPlaceholder")}
-            className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all placeholder:text-gray-400 focus:border-sky-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-sky-500/10"
-            {...form.register("confirmPassword")}
-          />
-          {form.formState.errors.confirmPassword && (
-            <p className="text-xs font-medium text-red-500">
-              {form.formState.errors.confirmPassword.message}
-            </p>
-          )}
-        </div>
-      </div>
-
-      <button
-        type="submit"
-        disabled={isPending}
-        className="cursor-pointer group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-yellow-500 px-4 py-3.5 font-bold text-slate-900 transition-all hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-500/20 disabled:opacity-50"
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-6"
       >
-        {isPending ? (
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-slate-900/30 border-t-slate-900" />
-        ) : (
-          <>
-            <UserPlus className="h-5 w-5 transition-transform group-hover:scale-110" />
-            {t("register")}
-          </>
+        {error && (
+          <div className="animate-in fade-in slide-in-from-top-1 rounded-xl border border-red-800/50 bg-red-900/20 p-4 text-sm font-medium text-red-400 backdrop-blur-sm">
+            {error.message || t("error")}
+          </div>
         )}
-      </button>
-    </form>
+
+        <div className="space-y-4">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="email" className="text-sm font-semibold text-slate-300">
+              {t("email")}
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder={t("emailPlaceholder")}
+              className="rounded-xl border border-slate-700 bg-slate-800/50 px-4 py-3 text-white transition-all placeholder:text-slate-500 focus:border-sky-500 focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/50 backdrop-blur-sm"
+              {...form.register("email")}
+            />
+            {form.formState.errors.email && (
+              <p className="text-xs font-medium text-red-400">
+                {form.formState.errors.email.message}
+              </p>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label
+              htmlFor="password"
+              className="text-sm font-semibold text-slate-300"
+            >
+              {t("password")}
+            </label>
+            <input
+              id="password"
+              type="password"
+              placeholder={t("passwordPlaceholder")}
+              className="rounded-xl border border-slate-700 bg-slate-800/50 px-4 py-3 text-white transition-all placeholder:text-slate-500 focus:border-sky-500 focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/50 backdrop-blur-sm"
+              {...form.register("password")}
+            />
+            {form.formState.errors.password && (
+              <p className="text-xs font-medium text-red-400">
+                {form.formState.errors.password.message}
+              </p>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label
+              htmlFor="confirmPassword"
+              className="text-sm font-semibold text-slate-300"
+            >
+              {t("confirmPassword")}
+            </label>
+            <input
+              id="confirmPassword"
+              type="password"
+              placeholder={t("confirmPasswordPlaceholder")}
+              className="rounded-xl border border-slate-700 bg-slate-800/50 px-4 py-3 text-white transition-all placeholder:text-slate-500 focus:border-sky-500 focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/50 backdrop-blur-sm"
+              {...form.register("confirmPassword")}
+            />
+            {form.formState.errors.confirmPassword && (
+              <p className="text-xs font-medium text-red-400">
+                {form.formState.errors.confirmPassword.message}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          disabled={isPending}
+          className="inline-flex cursor-pointer w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-400 px-8 py-3.5 text-base font-bold text-slate-900 shadow-lg shadow-yellow-500/20 transition-all hover:scale-[1.02] hover:shadow-yellow-500/30 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50"
+        >
+          {isPending ? (
+            <div className="h-5 w-5 animate-spin rounded-full border-2 border-slate-900/30 border-t-slate-900" />
+          ) : (
+            <>
+              <UserPlus className="h-5 w-5" />
+              {t("register")}
+            </>
+          )}
+        </button>
+
+        <div className="pt-4 text-center lg:text-left">
+          <p className="text-sm text-slate-400">
+            Vous avez déjà un compte ?{" "}
+            <Link
+              href="/auth/login"
+              className="cursor-pointer font-bold text-yellow-400 transition-colors hover:text-yellow-300"
+            >
+              {t("login")}
+            </Link>
+          </p>
+        </div>
+      </form>
+    </div>
   );
 }
 

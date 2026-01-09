@@ -19,7 +19,7 @@ export function AuthButtons({
         <Link
           href="/auth/login"
           onClick={onLinkClick}
-          className="flex items-center gap-2 rounded-lg px-4 py-2 text-base font-medium text-gray-200 transition-colors hover:bg-sky-800 hover:text-yellow-400"
+          className="cursor-pointer flex items-center gap-2 rounded-lg px-4 py-2 text-base font-medium text-gray-200 transition-colors hover:bg-sky-800 hover:text-yellow-400"
         >
           <LogIn className="h-5 w-5" />
           {t("login")}
@@ -27,7 +27,7 @@ export function AuthButtons({
         <Link
           href="/auth/register"
           onClick={onLinkClick}
-          className="mt-2 flex items-center gap-2 rounded-lg bg-gradient-to-r from-yellow-500 to-yellow-400 px-4 py-2 text-base font-medium text-slate-900 transition-opacity hover:opacity-90"
+          className="cursor-pointer mt-2 flex items-center gap-2 rounded-lg bg-gradient-to-r from-yellow-500 to-yellow-400 px-4 py-2 text-base font-medium text-slate-900 transition-opacity hover:opacity-90"
         >
           <UserPlus className="h-5 w-5" />
           {t("register")}
@@ -40,13 +40,13 @@ export function AuthButtons({
     <div className="flex items-center gap-4">
       <Link
         href="/auth/login"
-        className="text-sm font-semibold text-yellow-400 transition-colors hover:text-white"
+        className="cursor-pointer text-sm font-semibold text-yellow-400 transition-colors hover:text-white"
       >
         {t("login")}
       </Link>
       <Link
         href="/auth/register"
-        className="rounded-lg bg-gradient-to-r from-yellow-500 to-yellow-400 px-4 py-2 text-sm font-medium text-slate-900 transition-opacity hover:opacity-90"
+        className="cursor-pointer rounded-lg bg-gradient-to-r from-yellow-500 to-yellow-400 px-4 py-2 text-sm font-medium text-slate-900 transition-opacity hover:opacity-90"
       >
         {t("register")}
       </Link>

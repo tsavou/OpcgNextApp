@@ -20,5 +20,9 @@
   "registering": "Inscription en cours...",
   "errorLoading": "Erreur lors du chargement des sets",
   "retry": "Réessayer",
-  "error": "Une erreur est survenue"
+  "error": "Une erreur est survenue",
+  "signupSuccessTitle": "Bienvenue à bord !",
+  "signupSuccessDesc": "Votre inscription est presque terminée. Un email de confirmation a été envoyé dans votre boîte de réception. Cliquez sur le lien pour activer votre Log Pose.",
+  "checkEmail": "Vérifiez vos emails",
+  "backToLogin": "Retour à la connexion"
 }

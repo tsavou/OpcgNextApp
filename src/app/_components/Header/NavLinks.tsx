@@ -25,7 +25,7 @@ export function NavLinks({
           key={link.href}
           href={link.href}
           onClick={onLinkClick}
-          className={linkClassName}
+          className={`cursor-pointer ${linkClassName}`}
         >
           {link.label}
         </Link>

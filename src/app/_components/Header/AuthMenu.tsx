@@ -31,16 +31,16 @@ export function AuthMenu({ isAuthenticated }: AuthMenuProps) {
     <div className="relative">
       <button
         onClick={toggleAuthMenu}
-        className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-200 transition-colors hover:bg-sky-800"
+        className="cursor-pointer group flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-all hover:bg-slate-800/80 hover:text-yellow-400 hover:shadow-lg hover:shadow-yellow-500/10"
         aria-label={t("account")}
       >
-        <User className="h-5 w-5" />
+        <User className="h-5 w-5 transition-transform group-hover:scale-110" />
         <span className="hidden lg:inline">{t("account")}</span>
       </button>
       {isAuthMenuOpen && (
         <>
           <div className="fixed inset-0 z-10" onClick={toggleAuthMenu} />
-          <div className="absolute top-full right-0 mt-2 w-48 rounded-lg border border-gray-200 bg-white shadow-lg">
+          <div className="absolute top-full right-0 mt-2 w-48 rounded-xl border border-slate-700/50 bg-slate-800/95 backdrop-blur-md shadow-2xl shadow-black/50 overflow-hidden">
             <UserMenu onLogout={handleLogout} onLinkClick={toggleAuthMenu} />
           </div>
         </>

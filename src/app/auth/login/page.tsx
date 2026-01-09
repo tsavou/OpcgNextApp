@@ -3,20 +3,36 @@ import Image from "next/image";
 
 export default function LoginPage() {
   return (
-    <div className="relative flex w-full flex-1 items-center bg-slate-50 lg:relative">
-      <div className="mx-auto w-full max-w-7xl py-12 lg:py-16">
-        <div className="flex flex-col items-center justify-center px-6 sm:px-8 lg:w-1/2 lg:items-start xl:pr-16">
-          <LoginForm />
+    <div className="relative flex flex-1 w-full bg-slate-900">
+      <div className="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-1/3 lg:px-8 xl:px-12">
+        <div className="mb-8 lg:hidden">
+          <Image
+            src="/images/logo.png"
+            alt="LogPose Cards"
+            width={120}
+            height={120}
+            className="h-auto w-auto rounded-full"
+          />
         </div>
+        <LoginForm />
       </div>
-      <div className="relative hidden h-full w-full bg-sky-950 lg:absolute lg:inset-y-0 lg:right-0 lg:block lg:w-1/2">
-        <Image
-          src="/images/logpose.png"
-          alt="LogPoseCards"
-          width={1903}
-          height={847}
-          className="absolute inset-0 size-full object-contain"
-        />
+
+      <div className="relative hidden lg:block lg:w-2/3">
+        <div className="absolute inset-0 bg-slate-900">
+          <Image
+            src="/images/logpose.png"
+            alt="One Piece Map Background"
+            fill
+            className="object-cover opacity-60 mix-blend-overlay"
+            priority
+          />
+        </div>
+
+        <div className="absolute bottom-12 right-12 z-20 max-w-md text-right">
+          <blockquote className="text-xl font-medium italic text-slate-300/80">
+            &quot;The destination is important, but the journey is even more important.&quot;
+          </blockquote>
+        </div>
       </div>
     </div>
   );

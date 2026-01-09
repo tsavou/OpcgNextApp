@@ -14,7 +14,7 @@ export function getSetColor(setId: string) {
     "OP-06": "from-stone-600 to-stone-500",
     "OP-07": "from-yellow-300 to-yellow-200",
     "OP-08": "from-teal-800 to-teal-700",
-    "OP-09": "from-gray-900 to-gray-800",
+    "OP-09": "from-gray-950 to-gray-850",
     "OP-10": "from-indigo-900 to-indigo-800",
     "OP-11": "from-pink-900 to-pink-800",
     "OP-12": "from-green-800 to-green-700",

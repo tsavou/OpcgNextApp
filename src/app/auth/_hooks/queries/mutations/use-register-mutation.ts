@@ -20,7 +20,7 @@ export function useRegisterMutation() {
         email: payload.email,
         password: payload.password,
         options: {
-          emailRedirectTo: `${window.location.origin}/profile`,
+          emailRedirectTo: `${window.location.origin}/auth/callback?next=/profile`,
         },
       });
 
@@ -34,7 +34,7 @@ export function useRegisterMutation() {
       // Invalider la query de l'utilisateur pour forcer le re-fetch
       queryClient.invalidateQueries({ queryKey: ["user"] });
       // Rediriger vers le profil
-      router.push("/profile");
+      router.push("/auth/sign-up-success");
       router.refresh();
     },
     onError: (error) => {

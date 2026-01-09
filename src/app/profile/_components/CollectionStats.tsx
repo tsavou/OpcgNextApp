@@ -1,6 +1,5 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { LibraryBig, Layers, TrendingUp, Star } from "lucide-react";
 
 interface StatCardProps {
@@ -13,21 +12,21 @@ interface StatCardProps {
 
 function StatCard({ icon, label, value, subtitle, color }: StatCardProps) {
   const colorClasses = {
-    sky: "bg-sky-50 text-sky-600 border-sky-200",
-    yellow: "bg-yellow-50 text-yellow-600 border-yellow-200",
-    green: "bg-green-50 text-green-600 border-green-200",
-    purple: "bg-purple-50 text-purple-600 border-purple-200",
+    sky: "bg-sky-900/30 text-sky-400 border-sky-700 hover:shadow-sky-500/20",
+    yellow: "bg-yellow-900/30 text-yellow-400 border-yellow-700 hover:shadow-yellow-500/20",
+    green: "bg-green-900/30 text-green-400 border-green-700 hover:shadow-green-500/20",
+    purple: "bg-purple-900/30 text-purple-400 border-purple-700 hover:shadow-purple-500/20",
   };
 
   return (
     <div
-      className={`rounded-xl border p-6 transition-all hover:shadow-md ${colorClasses[color]}`}
+      className={`rounded-xl border p-6 transition-all hover:shadow-lg backdrop-blur-sm ${colorClasses[color]}`}
     >
       <div className="mb-4 flex items-center justify-between">
-        <div className={`rounded-lg bg-white p-2 shadow-sm`}>{icon}</div>
+        <div className={`rounded-lg bg-slate-800/50 p-2 shadow-sm`}>{icon}</div>
       </div>
       <div>
-        <p className="text-3xl font-bold">{value}</p>
+        <p className="text-3xl font-bold text-white">{value}</p>
         <p className="mt-1 text-sm font-medium opacity-80">{label}</p>
         {subtitle && (
           <p className="mt-1 text-xs opacity-60">{subtitle}</p>
@@ -38,8 +37,6 @@ function StatCard({ icon, label, value, subtitle, color }: StatCardProps) {
 }
 
 export function CollectionStats() {
-  const t = useTranslations("global");
-
   // TODO: Remplacer par des données réelles depuis Supabase
   // Pour l'instant, on affiche des valeurs de démonstration
   const stats = {
@@ -50,8 +47,8 @@ export function CollectionStats() {
   };
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
-      <h3 className="mb-6 text-xl font-bold text-gray-900">
+    <div className="rounded-2xl border border-slate-700 bg-slate-800/50 p-6 shadow-lg backdrop-blur-sm">
+      <h3 className="mb-6 text-xl font-bold text-white">
         Statistiques de collection
       </h3>
 
@@ -87,8 +84,8 @@ export function CollectionStats() {
       </div>
 
       {stats.totalCards === 0 && (
-        <div className="mt-6 rounded-lg bg-amber-50 p-4 text-center">
-          <p className="text-sm text-amber-800">
+        <div className="mt-6 rounded-lg border border-yellow-700/50 bg-yellow-900/20 p-4 text-center backdrop-blur-sm">
+          <p className="text-sm text-yellow-400">
             Commencez à ajouter des cartes à votre collection pour voir vos
             statistiques !
           </p>

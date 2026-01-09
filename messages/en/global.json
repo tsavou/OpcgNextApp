@@ -20,5 +20,9 @@
   "registering": "Registering...",
   "errorLoading": "Error loading sets",
   "retry": "Retry",
-  "error": "An error occurred"
+  "error": "An error occurred",
+  "signupSuccessTitle": "Welcome aboard!",
+  "signupSuccessDesc": "Your registration is almost complete. A confirmation email has been sent to your inbox. Click the link to activate your Log Pose.",
+  "checkEmail": "Check your emails",
+  "backToLogin": "Back to login"
 }
