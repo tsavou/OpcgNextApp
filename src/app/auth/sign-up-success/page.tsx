@@ -42,7 +42,7 @@ export default function SignUpSuccessPage() {
               <div className="text-left">
                 <p className="font-medium text-slate-200">{t("checkEmail")}</p>
                 <p className="text-xs text-slate-500">
-                  Pensez à vérifier vos spams si besoin.
+                  {t("checkSpam")}
                 </p>
               </div>
             </div>

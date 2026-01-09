@@ -20,7 +20,7 @@ export function useRegisterMutation() {
         email: payload.email,
         password: payload.password,
         options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback?next=/profile`,
+          emailRedirectTo: `${window.location.origin}/profile`,
         },
       });
 

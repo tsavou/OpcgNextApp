@@ -38,7 +38,7 @@ export function Hero() {
       </div>
 
       <div className="relative hidden lg:block lg:w-1/2">
-        <div className="absolute inset-0 bg-slate-900">
+        <div className="absolute inset-0 bg-slate-800">
           <Image
             src="/images/logpose.png"
             alt="One Piece Map Background"

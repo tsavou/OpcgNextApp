@@ -24,5 +24,16 @@
   "signupSuccessTitle": "Bienvenue à bord !",
   "signupSuccessDesc": "Votre inscription est presque terminée. Un email de confirmation a été envoyé dans votre boîte de réception. Cliquez sur le lien pour activer votre Log Pose.",
   "checkEmail": "Vérifiez vos emails",
-  "backToLogin": "Retour à la connexion"
+  "backToLogin": "Retour à la connexion",
+  "authErrorTitle": "Erreur d'authentification",
+  "authErrorDesc": "Une erreur s'est produite lors de la vérification de votre compte. Veuillez réessayer.",
+  "authErrorDetails": "Détails de l'erreur",
+  "authErrorDefault": "Une erreur inconnue s'est produite. Veuillez réessayer ou contacter le support.",
+  "loginWelcome": "Ravi de vous revoir sur LogPoseCards !",
+  "noAccount": "Vous n'avez pas de compte ?",
+  "registerWelcome": "Commencez votre aventure sur LogPoseCards !",
+  "alreadyHaveAccount": "Vous avez déjà un compte ?",
+  "checkSpam": "Pensez à vérifier vos spams si besoin.",
+  "errorOccurred": "Une erreur est survenue",
+  "noTokenError": "Aucun token hash ou type fourni"
 }

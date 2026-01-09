@@ -6,6 +6,7 @@ import { User, Mail, Calendar } from "lucide-react";
 
 export function ProfileInfo() {
   const t = useTranslations("global");
+  const tProfile = useTranslations("profile");
   const { user, isLoading } = useAuth();
 
   if (isLoading) {
@@ -30,7 +31,7 @@ export function ProfileInfo() {
         month: "long",
         day: "numeric",
       })
-    : "N/A";
+    : tProfile("notAvailable");
 
   return (
     <div className="rounded-2xl border border-slate-700 bg-slate-800/50 p-6 shadow-lg backdrop-blur-sm">
@@ -57,7 +58,7 @@ export function ProfileInfo() {
           <Calendar className="h-5 w-5 text-sky-400" />
           <div>
             <p className="text-sm font-medium text-slate-400">
-              Membre depuis
+              {tProfile("memberSince")}
             </p>
             <p className="text-base text-white">{createdAt}</p>
           </div>

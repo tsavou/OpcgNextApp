@@ -1,14 +1,17 @@
 import { ProfileInfo } from "./_components/ProfileInfo";
 import { CollectionStats } from "./_components/CollectionStats";
+import { useTranslations } from "next-intl";
 
 export default function ProfilePage() {
+  const t = useTranslations("profile");
+  
   return (
-    <div className="min-h-screen bg-slate-900">
+    <div className="flex-1 bg-slate-900">
       <div className="container mx-auto max-w-7xl px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white">Mon Profil</h1>
+          <h1 className="text-3xl font-bold text-white">{t("title")}</h1>
           <p className="mt-2 text-slate-400">
-            Gérez vos informations et consultez vos statistiques de collection
+            {t("subtitle")}
           </p>
         </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { LibraryBig, Layers, TrendingUp, Star } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface StatCardProps {
   icon: React.ReactNode;
@@ -37,6 +38,8 @@ function StatCard({ icon, label, value, subtitle, color }: StatCardProps) {
 }
 
 export function CollectionStats() {
+  const t = useTranslations("profile");
+  
   // TODO: Remplacer par des données réelles depuis Supabase
   // Pour l'instant, on affiche des valeurs de démonstration
   const stats = {
@@ -49,36 +52,36 @@ export function CollectionStats() {
   return (
     <div className="rounded-2xl border border-slate-700 bg-slate-800/50 p-6 shadow-lg backdrop-blur-sm">
       <h3 className="mb-6 text-xl font-bold text-white">
-        Statistiques de collection
+        {t("collectionStats")}
       </h3>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard
           icon={<LibraryBig className="h-6 w-6" />}
-          label="Cartes totales"
+          label={t("totalCards")}
           value={stats.totalCards}
-          subtitle="Dans votre collection"
+          subtitle={t("inYourCollection")}
           color="sky"
         />
         <StatCard
           icon={<Layers className="h-6 w-6" />}
-          label="Sets collectés"
+          label={t("collectedSets")}
           value={stats.totalSets}
-          subtitle="Sets différents"
+          subtitle={t("differentSets")}
           color="yellow"
         />
         <StatCard
           icon={<TrendingUp className="h-6 w-6" />}
-          label="Valeur estimée"
+          label={t("estimatedValue")}
           value={`${stats.collectionValue.toLocaleString("fr-FR")} €`}
-          subtitle="Prix du marché"
+          subtitle={t("marketPrice")}
           color="green"
         />
         <StatCard
           icon={<Star className="h-6 w-6" />}
-          label="Cartes rares"
+          label={t("rareCards")}
           value={stats.rareCards}
-          subtitle="SR, SEC, SP"
+          subtitle={t("rareCardsSubtitle")}
           color="purple"
         />
       </div>
@@ -86,8 +89,7 @@ export function CollectionStats() {
       {stats.totalCards === 0 && (
         <div className="mt-6 rounded-lg border border-yellow-700/50 bg-yellow-900/20 p-4 text-center backdrop-blur-sm">
           <p className="text-sm text-yellow-400">
-            Commencez à ajouter des cartes à votre collection pour voir vos
-            statistiques !
+            {t("emptyCollection")}
           </p>
         </div>
       )}

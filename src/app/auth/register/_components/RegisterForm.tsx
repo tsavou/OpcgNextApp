@@ -28,7 +28,7 @@ export function RegisterForm() {
           {t("register")}
         </h1>
         <p className="text-lg text-slate-400">
-          Commencez votre aventure sur LogPoseCards !
+          {t("registerWelcome")}
         </p>
       </div>
 
@@ -121,7 +121,7 @@ export function RegisterForm() {
 
         <div className="pt-4 text-center lg:text-left">
           <p className="text-sm text-slate-400">
-            Vous avez déjà un compte ?{" "}
+            {t("alreadyHaveAccount")}{" "}
             <Link
               href="/auth/login"
               className="cursor-pointer font-bold text-yellow-400 transition-colors hover:text-yellow-300"

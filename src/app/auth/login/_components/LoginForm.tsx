@@ -28,7 +28,7 @@ export function LoginForm() {
           {t("login")}
         </h1>
         <p className="text-lg text-slate-400">
-          Ravi de vous revoir sur LogPoseCards !
+          {t("loginWelcome")}
         </p>
       </div>
 
@@ -100,7 +100,7 @@ export function LoginForm() {
 
         <div className="pt-4 text-center lg:text-left">
           <p className="text-sm text-slate-400">
-            Vous n&apos;avez pas de compte ?{" "}
+            {t("noAccount")}{" "}
             <Link
               href="/auth/register"
               className="font-bold text-yellow-400 transition-colors hover:text-yellow-300"
