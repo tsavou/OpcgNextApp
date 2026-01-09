@@ -5,7 +5,11 @@ import { useLocale } from "next-intl";
 import { Languages } from "lucide-react";
 import { useState } from "react";
 
-export function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+  dropdownPosition?: "right" | "left";
+}
+
+export function LanguageSwitcher({ dropdownPosition = "right" }: LanguageSwitcherProps = {}) {
   const router = useRouter();
   const locale = useLocale();
   const [isOpen, setIsOpen] = useState(false);
@@ -52,7 +56,7 @@ export function LanguageSwitcher() {
             className="fixed inset-0 z-10"
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute top-full right-0 mt-2 w-40 rounded-xl border border-slate-700/50 bg-slate-800/95 backdrop-blur-md shadow-2xl shadow-black/50 overflow-hidden">
+          <div className={`absolute top-full ${dropdownPosition === "left" ? "left-0" : "right-0"} mt-2 w-40 rounded-xl border border-slate-700/50 bg-slate-800/95 backdrop-blur-md shadow-2xl shadow-black/50 overflow-hidden z-50`}>
             {languages.map((lang) => (
               <button
                 key={lang.code}

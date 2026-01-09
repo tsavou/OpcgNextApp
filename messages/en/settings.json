@@ -1,0 +1,20 @@
+{
+  "title": "Settings",
+  "subtitle": "Manage your preferences and account settings",
+  "accountTitle": "Account Information",
+  "accountSubtitle": "Your personal information",
+  "readOnly": "Read only",
+  "preferencesTitle": "Preferences",
+  "preferencesSubtitle": "Customize your experience",
+  "language": "Language",
+  "languageDescription": "Choose your preferred language",
+  "notifications": "Notifications",
+  "notificationsDescription": "Manage your notification preferences",
+  "securityTitle": "Security",
+  "securitySubtitle": "Manage your account security",
+  "changePassword": "Change Password",
+  "changePasswordDescription": "Update your password for better security",
+  "logoutDescription": "Sign out of your account",
+  "comingSoon": "Coming soon"
+}
+
