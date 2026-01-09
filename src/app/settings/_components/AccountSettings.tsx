@@ -12,10 +12,10 @@ export function AccountSettings() {
   if (isLoading) {
     return (
       <div className="animate-pulse rounded-2xl border border-slate-700 bg-slate-800/50 p-6 shadow-lg backdrop-blur-sm">
-        <div className="h-6 w-32 bg-slate-700 rounded mb-4" />
+        <div className="mb-4 h-6 w-32 rounded bg-slate-700" />
         <div className="space-y-3">
-          <div className="h-4 w-full bg-slate-700 rounded" />
-          <div className="h-4 w-3/4 bg-slate-700 rounded" />
+          <div className="h-4 w-full rounded bg-slate-700" />
+          <div className="h-4 w-3/4 rounded bg-slate-700" />
         </div>
       </div>
     );
@@ -42,7 +42,9 @@ export function AccountSettings() {
           <div className="flex items-center gap-3">
             <Mail className="h-5 w-5 text-sky-400" />
             <div>
-              <p className="text-sm font-medium text-slate-400">{tGlobal("email")}</p>
+              <p className="text-sm font-medium text-slate-400">
+                {tGlobal("email")}
+              </p>
               <p className="text-base text-white">{user.email}</p>
             </div>
           </div>
@@ -54,4 +56,3 @@ export function AccountSettings() {
     </div>
   );
 }
-

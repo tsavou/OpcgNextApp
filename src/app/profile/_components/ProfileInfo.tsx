@@ -12,10 +12,10 @@ export function ProfileInfo() {
   if (isLoading) {
     return (
       <div className="animate-pulse rounded-2xl border border-slate-700 bg-slate-800/50 p-6 shadow-lg backdrop-blur-sm">
-        <div className="h-6 w-32 bg-slate-700 rounded mb-4" />
+        <div className="mb-4 h-6 w-32 rounded bg-slate-700" />
         <div className="space-y-3">
-          <div className="h-4 w-full bg-slate-700 rounded" />
-          <div className="h-4 w-3/4 bg-slate-700 rounded" />
+          <div className="h-4 w-full rounded bg-slate-700" />
+          <div className="h-4 w-3/4 rounded bg-slate-700" />
         </div>
       </div>
     );
@@ -67,4 +67,3 @@ export function ProfileInfo() {
     </div>
   );
 }
-

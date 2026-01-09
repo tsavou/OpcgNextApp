@@ -14,14 +14,17 @@ interface StatCardProps {
 function StatCard({ icon, label, value, subtitle, color }: StatCardProps) {
   const colorClasses = {
     sky: "bg-sky-900/30 text-sky-400 border-sky-700 hover:shadow-sky-500/20",
-    yellow: "bg-yellow-900/30 text-yellow-400 border-yellow-700 hover:shadow-yellow-500/20",
-    green: "bg-green-900/30 text-green-400 border-green-700 hover:shadow-green-500/20",
-    purple: "bg-purple-900/30 text-purple-400 border-purple-700 hover:shadow-purple-500/20",
+    yellow:
+      "bg-yellow-900/30 text-yellow-400 border-yellow-700 hover:shadow-yellow-500/20",
+    green:
+      "bg-green-900/30 text-green-400 border-green-700 hover:shadow-green-500/20",
+    purple:
+      "bg-purple-900/30 text-purple-400 border-purple-700 hover:shadow-purple-500/20",
   };
 
   return (
     <div
-      className={`rounded-xl border p-6 transition-all hover:shadow-lg backdrop-blur-sm ${colorClasses[color]}`}
+      className={`rounded-xl border p-6 backdrop-blur-sm transition-all hover:shadow-lg ${colorClasses[color]}`}
     >
       <div className="mb-4 flex items-center justify-between">
         <div className={`rounded-lg bg-slate-800/50 p-2 shadow-sm`}>{icon}</div>
@@ -29,9 +32,7 @@ function StatCard({ icon, label, value, subtitle, color }: StatCardProps) {
       <div>
         <p className="text-3xl font-bold text-white">{value}</p>
         <p className="mt-1 text-sm font-medium opacity-80">{label}</p>
-        {subtitle && (
-          <p className="mt-1 text-xs opacity-60">{subtitle}</p>
-        )}
+        {subtitle && <p className="mt-1 text-xs opacity-60">{subtitle}</p>}
       </div>
     </div>
   );
@@ -39,7 +40,7 @@ function StatCard({ icon, label, value, subtitle, color }: StatCardProps) {
 
 export function CollectionStats() {
   const t = useTranslations("profile");
-  
+
   // TODO: Remplacer par des données réelles depuis Supabase
   // Pour l'instant, on affiche des valeurs de démonstration
   const stats = {
@@ -88,12 +89,9 @@ export function CollectionStats() {
 
       {stats.totalCards === 0 && (
         <div className="mt-6 rounded-lg border border-yellow-700/50 bg-yellow-900/20 p-4 text-center backdrop-blur-sm">
-          <p className="text-sm text-yellow-400">
-            {t("emptyCollection")}
-          </p>
+          <p className="text-sm text-yellow-400">{t("emptyCollection")}</p>
         </div>
       )}
     </div>
   );
 }
-

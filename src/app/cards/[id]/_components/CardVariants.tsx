@@ -34,7 +34,7 @@ export function CardVariants({
             <Link
               key={index}
               href={variantUrl}
-              className={`cursor-pointer block rounded-lg border-2 p-4 transition-all hover:shadow-lg backdrop-blur-sm ${
+              className={`block cursor-pointer rounded-lg border-2 p-4 backdrop-blur-sm transition-all hover:shadow-lg ${
                 isCurrentVariant
                   ? "border-sky-500 bg-sky-900/30 hover:border-sky-400"
                   : "border-slate-700 bg-slate-800/50 hover:border-slate-600"

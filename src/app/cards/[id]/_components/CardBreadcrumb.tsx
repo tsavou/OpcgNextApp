@@ -13,7 +13,10 @@ export function CardBreadcrumb({ card }: CardBreadcrumbProps) {
     <nav className="mb-6">
       <ol className="flex items-center space-x-2 text-sm text-slate-400">
         <li>
-          <Link href="/" className="cursor-pointer hover:text-white transition-colors">
+          <Link
+            href="/"
+            className="cursor-pointer transition-colors hover:text-white"
+          >
             {t("home")}
           </Link>
         </li>
@@ -21,7 +24,7 @@ export function CardBreadcrumb({ card }: CardBreadcrumbProps) {
         <li>
           <Link
             href={`/cards?setId=${card.set_id}&setName=${card.set_name}`}
-            className="cursor-pointer hover:text-white transition-colors"
+            className="cursor-pointer transition-colors hover:text-white"
           >
             {card.set_name}
           </Link>

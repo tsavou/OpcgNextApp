@@ -19,7 +19,8 @@
   }
 } */
 
-body, html {
+body,
+html {
   overscroll-behavior: none;
 }
 

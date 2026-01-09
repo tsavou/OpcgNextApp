@@ -31,9 +31,9 @@ export function useLoginMutation() {
       // Invalider la query de l'utilisateur pour forcer le re-fetch
       queryClient.invalidateQueries({ queryKey: ["user"] });
       // Rediriger vers le profil ou la page demandée
-      const redirectTo = new URLSearchParams(window.location.search).get(
-        "redirect",
-      ) || "/profile";
+      const redirectTo =
+        new URLSearchParams(window.location.search).get("redirect") ||
+        "/profile";
       router.push(redirectTo);
       router.refresh();
     },
@@ -42,4 +42,3 @@ export function useLoginMutation() {
     },
   });
 }
-

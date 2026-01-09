@@ -14,7 +14,9 @@ export function PreferencesSettings() {
           <Globe className="h-6 w-6 text-white" />
         </div>
         <div>
-          <h2 className="text-xl font-bold text-white">{t("preferencesTitle")}</h2>
+          <h2 className="text-xl font-bold text-white">
+            {t("preferencesTitle")}
+          </h2>
           <p className="text-sm text-slate-400">{t("preferencesSubtitle")}</p>
         </div>
       </div>
@@ -24,8 +26,12 @@ export function PreferencesSettings() {
           <div className="flex items-center gap-3">
             <Globe className="h-5 w-5 text-yellow-400" />
             <div>
-              <p className="text-sm font-medium text-slate-400">{t("language")}</p>
-              <p className="text-xs text-slate-500">{t("languageDescription")}</p>
+              <p className="text-sm font-medium text-slate-400">
+                {t("language")}
+              </p>
+              <p className="text-xs text-slate-500">
+                {t("languageDescription")}
+              </p>
             </div>
           </div>
           <div className="relative">
@@ -37,8 +43,12 @@ export function PreferencesSettings() {
           <div className="flex items-center gap-3">
             <Bell className="h-5 w-5 text-yellow-400" />
             <div>
-              <p className="text-sm font-medium text-slate-400">{t("notifications")}</p>
-              <p className="text-xs text-slate-500">{t("notificationsDescription")}</p>
+              <p className="text-sm font-medium text-slate-400">
+                {t("notifications")}
+              </p>
+              <p className="text-xs text-slate-500">
+                {t("notificationsDescription")}
+              </p>
             </div>
           </div>
           <span className="rounded-full bg-slate-700/50 px-3 py-1 text-xs font-medium text-slate-300">
@@ -49,4 +59,3 @@ export function PreferencesSettings() {
     </div>
   );
 }
-

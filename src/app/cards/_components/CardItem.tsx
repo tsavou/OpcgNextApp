@@ -25,7 +25,7 @@ export function CardItem({ card }: CardItemProps) {
             src={card.card_image}
             alt={card.card_name}
             fill
-            className="rounded-lg object-contain object-center p-2 group-hover:scale-105 transition-all duration-300"
+            className="rounded-lg object-contain object-center p-2 transition-all duration-300 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
@@ -44,7 +44,9 @@ export function CardItem({ card }: CardItemProps) {
           {card.market_price > 0 && (
             <div>
               <span>{t("startingFrom")} </span>
-              <span className="font-semibold text-yellow-400">{card.market_price} €</span>
+              <span className="font-semibold text-yellow-400">
+                {card.market_price} €
+              </span>
             </div>
           )}
         </div>

@@ -6,12 +6,12 @@ interface AuthLayoutProps {
   showMobileLogo?: boolean;
 }
 
-export function AuthLayout({ 
-  children, 
+export function AuthLayout({
+  children,
   showMobileLogo = true,
 }: AuthLayoutProps) {
   return (
-    <div className="relative flex flex-1 w-full bg-slate-900">
+    <div className="relative flex w-full flex-1 bg-slate-900">
       <div className="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-1/3 lg:px-8 xl:px-12">
         {showMobileLogo && (
           <div className="mb-8 lg:hidden">
@@ -28,15 +28,14 @@ export function AuthLayout({
       </div>
 
       <div className="relative hidden lg:block lg:w-2/3">
-          <Image
-            src="/images/logpose.png"
-            alt="One Piece Map Background"
-            fill
-            className="object-cover"
-            priority
-          />
+        <Image
+          src="/images/logpose.png"
+          alt="One Piece Map Background"
+          fill
+          className="object-cover"
+          priority
+        />
       </div>
     </div>
   );
 }
-

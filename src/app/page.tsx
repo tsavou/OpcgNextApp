@@ -13,7 +13,9 @@ export default function Home() {
       <section id="sets" className="bg-slate-900 py-12">
         <div className="container mx-auto px-4">
           <div className="mb-8">
-            <h2 className="text-center text-3xl font-bold text-white">{t("setsTitle")}</h2>
+            <h2 className="text-center text-3xl font-bold text-white">
+              {t("setsTitle")}
+            </h2>
           </div>
 
           <AsyncBoundary

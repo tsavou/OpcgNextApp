@@ -31,7 +31,7 @@ export function AuthMenu({ isAuthenticated }: AuthMenuProps) {
     <div className="relative">
       <button
         onClick={toggleAuthMenu}
-        className="cursor-pointer group flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-all hover:bg-slate-800/80 hover:text-yellow-400 hover:shadow-lg hover:shadow-yellow-500/10"
+        className="group flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-all hover:bg-slate-800/80 hover:text-yellow-400 hover:shadow-lg hover:shadow-yellow-500/10"
         aria-label={t("account")}
       >
         <User className="h-5 w-5 transition-transform group-hover:scale-110" />
@@ -40,7 +40,7 @@ export function AuthMenu({ isAuthenticated }: AuthMenuProps) {
       {isAuthMenuOpen && (
         <>
           <div className="fixed inset-0 z-10" onClick={toggleAuthMenu} />
-          <div className="absolute top-full right-0 mt-2 w-48 rounded-xl border border-slate-700/50 bg-slate-800/95 backdrop-blur-md shadow-2xl shadow-black/50 overflow-hidden">
+          <div className="absolute top-full right-0 mt-2 w-48 overflow-hidden rounded-xl border border-slate-700/50 bg-slate-800/95 shadow-2xl shadow-black/50 backdrop-blur-md">
             <UserMenu onLogout={handleLogout} onLinkClick={toggleAuthMenu} />
           </div>
         </>

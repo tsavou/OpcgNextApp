@@ -12,15 +12,13 @@ export function CardPricing({ card }: CardPricingProps) {
   return (
     <div className="border-t border-slate-700 pt-6">
       <div className="mb-3 flex items-center gap-4">
-        <h3 className="text-lg font-semibold text-white">
-          {t("marketPrice")}
-        </h3>
+        <h3 className="text-lg font-semibold text-white">{t("marketPrice")}</h3>
 
         <a
           href={`https://www.cardmarket.com/fr/OnePiece/Products/Search?category=-1&searchString=${encodeURIComponent(card.card_set_id)}&searchMode=v2&mode=gallery`}
           target="_blank"
           rel="noopener noreferrer"
-          className="cursor-pointer flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-800/50 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-sky-500 hover:bg-slate-800 hover:text-white backdrop-blur-sm"
+          className="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-700 bg-slate-800/50 px-4 py-2 text-sm font-medium text-slate-300 backdrop-blur-sm transition-colors hover:border-sky-500 hover:bg-slate-800 hover:text-white"
         >
           <span>{t("viewOnCardmarket")}</span>
           <ExternalLink className="h-4 w-4" />

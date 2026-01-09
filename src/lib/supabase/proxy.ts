@@ -42,9 +42,10 @@ export async function updateSession(request: NextRequest) {
 
   // Routes protégées qui nécessitent une authentification
   const protectedRoutes = ["/collection", "/profile", "/settings"];
-  const isProtectedRoute = protectedRoutes.some((route) =>
-    request.nextUrl.pathname === route ||
-    request.nextUrl.pathname.startsWith(`${route}/`),
+  const isProtectedRoute = protectedRoutes.some(
+    (route) =>
+      request.nextUrl.pathname === route ||
+      request.nextUrl.pathname.startsWith(`${route}/`),
   );
 
   // Si la route est protégée et l'utilisateur n'est pas authentifié, rediriger vers login

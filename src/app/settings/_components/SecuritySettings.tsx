@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { Shield, Lock, LogOut } from "lucide-react";
 import { useLogoutMutation } from "@/app/auth/_hooks/queries/mutations/use-logout-mutation";
-import Link from "next/link";
 
 export function SecuritySettings() {
   const t = useTranslations("settings");
@@ -27,8 +26,12 @@ export function SecuritySettings() {
           <div className="flex items-center gap-3">
             <Lock className="h-5 w-5 text-red-400" />
             <div>
-              <p className="text-sm font-medium text-slate-400">{t("changePassword")}</p>
-              <p className="text-xs text-slate-500">{t("changePasswordDescription")}</p>
+              <p className="text-sm font-medium text-slate-400">
+                {t("changePassword")}
+              </p>
+              <p className="text-xs text-slate-500">
+                {t("changePasswordDescription")}
+              </p>
             </div>
           </div>
           <span className="rounded-full bg-slate-700/50 px-3 py-1 text-xs font-medium text-slate-300">
@@ -40,8 +43,12 @@ export function SecuritySettings() {
           <div className="flex items-center gap-3">
             <LogOut className="h-5 w-5 text-red-400" />
             <div>
-              <p className="text-sm font-medium text-red-400">{tGlobal("logout")}</p>
-              <p className="text-xs text-red-400/70">{t("logoutDescription")}</p>
+              <p className="text-sm font-medium text-red-400">
+                {tGlobal("logout")}
+              </p>
+              <p className="text-xs text-red-400/70">
+                {t("logoutDescription")}
+              </p>
             </div>
           </div>
           <button
@@ -55,4 +62,3 @@ export function SecuritySettings() {
     </div>
   );
 }
-
