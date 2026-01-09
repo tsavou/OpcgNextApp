@@ -1,42 +1,28 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { AlertCircle, Home, ArrowLeft } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { AuthLayout } from "../_components/AuthLayout";
 
 export default function AuthErrorPage() {
   const t = useTranslations("global");
   const searchParams = useSearchParams();
   const errorParam = searchParams.get("error");
   
-  // Si le paramètre est une clé de traduction, on la traduit, sinon on affiche le message tel quel
   let errorMessage = t("authErrorDefault");
   if (errorParam) {
-    // Vérifier si c'est une clé de traduction connue
     if (errorParam === "noTokenError") {
       errorMessage = t("noTokenError");
     } else {
-      // Sinon utiliser le message tel quel
       errorMessage = errorParam;
     }
   }
 
   return (
-    <div className="relative flex flex-1 w-full bg-slate-900">
-      <div className="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-1/3 lg:px-8 xl:px-12">
-        <div className="mb-8 lg:hidden">
-          <Image
-            src="/images/logo.png"
-            alt="LogPose Cards"
-            width={120}
-            height={120}
-            className="h-auto w-auto rounded-full"
-          />
-        </div>
-
-        <div className="w-full max-w-md space-y-8 text-center lg:text-left">
+    <AuthLayout>
+      <div className="w-full max-w-md space-y-8 text-center lg:text-left">
           <div className="space-y-4">
             <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
               {t("authErrorTitle")}
@@ -79,26 +65,7 @@ export default function AuthErrorPage() {
             </Link>
           </div>
         </div>
-      </div>
-
-      <div className="relative hidden lg:block lg:w-2/3">
-        <div className="absolute inset-0 bg-slate-900">
-          <Image
-            src="/images/logpose.png"
-            alt="One Piece Map Background"
-            fill
-            className="object-cover opacity-60 mix-blend-overlay"
-            priority
-          />
-        </div>
-
-        <div className="absolute bottom-12 right-12 z-20 max-w-md text-right">
-          <blockquote className="text-xl font-medium italic text-slate-300/80">
-            &quot;The destination is important, but the journey is even more important.&quot;
-          </blockquote>
-        </div>
-      </div>
-    </div>
+    </AuthLayout>
   );
 }
 

@@ -38,21 +38,13 @@ export function Hero() {
       </div>
 
       <div className="relative hidden lg:block lg:w-1/2">
-        <div className="absolute inset-0 bg-slate-800">
           <Image
             src="/images/logpose.png"
             alt="One Piece Map Background"
             fill
-            className="object-cover opacity-80 mix-blend-overlay"
+            className="object-cover"
             priority
           />
-        </div>
-
-        <div className="absolute bottom-2 right-2 z-20 max-w-md text-right">
-          <blockquote className="text-md font-medium italic text-slate-300/80">
-            &quot;The destination is important, but the journey is even more important.&quot;
-          </blockquote>
-        </div>
       </div>
     </section>
   );
