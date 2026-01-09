@@ -8,11 +8,12 @@ import { DesktopNav } from "./DesktopNav";
 import { AuthMenu } from "./AuthMenu";
 import { MobileMenuButton } from "./MobileMenuButton";
 import { MobileMenu } from "./MobileMenu";
+import { useAuth } from "@/app/auth/_hooks/use-auth";
 
 export function Header() {
   const t = useTranslations("global");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(true); // TODO: remplacer par l'état d'authentification réel quand j'implémenterai l'authentification
+  const { isAuthenticated } = useAuth();
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
@@ -23,7 +24,7 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-sky-900 shadow-lg backdrop-blur-sm">
+    <header className="sticky top-0 z-50 w-full bg-slate-900 shadow-lg backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <HeaderLogo />
 
@@ -31,10 +32,7 @@ export function Header() {
 
         <div className="flex items-center gap-4">
           <div className="relative hidden md:block">
-            <AuthMenu
-              isAuthenticated={isAuthenticated}
-              onLogout={() => setIsAuthenticated(false)}
-            />
+            <AuthMenu isAuthenticated={isAuthenticated} />
           </div>
 
           <div className="hidden sm:block">
@@ -53,7 +51,6 @@ export function Header() {
         links={navLinks}
         isAuthenticated={isAuthenticated}
         onLinkClick={toggleMobileMenu}
-        onLogout={() => setIsAuthenticated(false)}
       />
     </header>
   );

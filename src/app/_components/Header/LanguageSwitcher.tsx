@@ -5,7 +5,13 @@ import { useLocale } from "next-intl";
 import { Languages } from "lucide-react";
 import { useState } from "react";
 
-export function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+  dropdownPosition?: "right" | "left";
+}
+
+export function LanguageSwitcher({
+  dropdownPosition = "right",
+}: LanguageSwitcherProps = {}) {
   const router = useRouter();
   const locale = useLocale();
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +26,13 @@ export function LanguageSwitcher() {
 
   const switchLanguage = async (newLocale: string) => {
     try {
-      await cookieStore.set("locale", newLocale);
+      // Utiliser l'API Cookie Store du navigateur
+      if (typeof cookieStore !== "undefined") {
+        await cookieStore.set("locale", newLocale);
+      } else {
+        // Fallback pour les navigateurs qui ne supportent pas cookieStore
+        document.cookie = `locale=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+      }
       setIsOpen(false);
       router.refresh();
     } catch (error) {
@@ -34,11 +46,11 @@ export function LanguageSwitcher() {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-200 transition-colors hover:bg-sky-800"
+        className="group flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-all hover:bg-slate-800/80 hover:text-yellow-400 hover:shadow-lg hover:shadow-yellow-500/10"
         aria-label="Change language"
       >
-        <Languages className="h-4 w-4" />
-        <span className="hidden sm:inline">{currentLanguage.flag}</span>
+        <Languages className="h-4 w-4 transition-transform group-hover:rotate-12" />
+        <span className="hidden text-lg sm:inline">{currentLanguage.flag}</span>
       </button>
       {isOpen && (
         <>
@@ -46,19 +58,25 @@ export function LanguageSwitcher() {
             className="fixed inset-0 z-10"
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute top-full right-0 mt-2 w-40 rounded-lg border border-gray-200 bg-white shadow-lg">
+          <div
+            className={`absolute top-full ${dropdownPosition === "left" ? "left-0" : "right-0"} z-50 mt-2 w-40 overflow-hidden rounded-xl border border-slate-700/50 bg-slate-800/95 shadow-2xl shadow-black/50 backdrop-blur-md`}
+          >
             {languages.map((lang) => (
               <button
                 key={lang.code}
                 onClick={() => switchLanguage(lang.code)}
-                className={`flex w-full items-center gap-2 px-4 py-2 text-sm transition-colors first:rounded-t-lg last:rounded-b-lg ${
+                className={`group flex w-full cursor-pointer items-center gap-2 px-4 py-2.5 text-sm transition-all first:rounded-t-xl last:rounded-b-xl ${
                   locale === lang.code
-                    ? "bg-gray-50 font-medium text-yellow-600"
-                    : "text-gray-700 hover:bg-gray-50"
+                    ? "bg-yellow-900/20 font-semibold text-yellow-400 hover:bg-yellow-900/30"
+                    : "text-slate-300 hover:bg-slate-700/50 hover:text-yellow-400"
                 }`}
               >
-                <span>{lang.flag}</span>
-                <span>{lang.label}</span>
+                <span className="text-lg transition-transform group-hover:scale-110">
+                  {lang.flag}
+                </span>
+                <span className="transition-transform group-hover:translate-x-0.5">
+                  {lang.label}
+                </span>
               </button>
             ))}
           </div>

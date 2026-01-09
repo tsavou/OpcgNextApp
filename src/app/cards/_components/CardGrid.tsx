@@ -18,8 +18,8 @@ export function CardGrid() {
     return (
       <div className="flex items-center justify-center p-8">
         <div className="text-center">
-          <div className="mb-2 text-lg text-gray-400">🔍</div>
-          <p className="text-gray-600">
+          <div className="mb-2 text-lg text-slate-400">🔍</div>
+          <p className="text-slate-400">
             {setId
               ? t("noCardsFoundForSet", { setId, setName: setName || "" })
               : t("noCardsFound")}

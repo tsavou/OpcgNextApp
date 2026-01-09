@@ -10,17 +10,21 @@ export default function Home() {
     <div className="w-full">
       <Hero />
 
-      <section id="sets" className="container mx-auto px-4 py-12">
-        <div className="mb-8">
-          <h2 className="text-center text-2xl font-bold">{t("setsTitle")}</h2>
-        </div>
+      <section id="sets" className="bg-slate-900 py-12">
+        <div className="container mx-auto px-4">
+          <div className="mb-8">
+            <h2 className="text-center text-3xl font-bold text-white">
+              {t("setsTitle")}
+            </h2>
+          </div>
 
-        <AsyncBoundary
-          loadingFallback={<SetGridSkeleton />}
-          errorTitle={t("errorLoadingSets")}
-        >
-          <SetGrid />
-        </AsyncBoundary>
+          <AsyncBoundary
+            loadingFallback={<SetGridSkeleton />}
+            errorTitle={t("errorLoadingSets")}
+          >
+            <SetGrid />
+          </AsyncBoundary>
+        </div>
       </section>
     </div>
   );
