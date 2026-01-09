@@ -38,7 +38,7 @@ export default function RootLayout({
           <ReactQueryDevtools />
           <NextIntlClientProvider>
             <Header />
-            <div className="flex w-full grow">{children}</div>
+            <main className="flex flex-1 flex-col">{children}</main>
           </NextIntlClientProvider>
           <SetLocaleCookie />
         </body>

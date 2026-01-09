@@ -5,17 +5,23 @@ import { useTranslations } from "next-intl";
 import { User } from "lucide-react";
 import { AuthButtons } from "./AuthButtons";
 import { UserMenu } from "./UserMenu";
+import { useLogoutMutation } from "@/app/auth/_hooks/queries/mutations/use-logout-mutation";
 
 interface AuthMenuProps {
   isAuthenticated: boolean;
-  onLogout: () => void;
 }
 
-export function AuthMenu({ isAuthenticated, onLogout }: AuthMenuProps) {
+export function AuthMenu({ isAuthenticated }: AuthMenuProps) {
   const t = useTranslations("global");
   const [isAuthMenuOpen, setIsAuthMenuOpen] = useState(false);
+  const { mutate: logout } = useLogoutMutation();
 
   const toggleAuthMenu = () => setIsAuthMenuOpen(!isAuthMenuOpen);
+
+  const handleLogout = () => {
+    logout();
+    toggleAuthMenu();
+  };
 
   if (!isAuthenticated) {
     return <AuthButtons />;
@@ -35,13 +41,7 @@ export function AuthMenu({ isAuthenticated, onLogout }: AuthMenuProps) {
         <>
           <div className="fixed inset-0 z-10" onClick={toggleAuthMenu} />
           <div className="absolute top-full right-0 mt-2 w-48 rounded-lg border border-gray-200 bg-white shadow-lg">
-            <UserMenu
-              onLogout={() => {
-                onLogout();
-                toggleAuthMenu();
-              }}
-              onLinkClick={toggleAuthMenu}
-            />
+            <UserMenu onLogout={handleLogout} onLinkClick={toggleAuthMenu} />
           </div>
         </>
       )}

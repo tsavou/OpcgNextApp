@@ -31,7 +31,7 @@ export function Hero() {
 
             <div className="group/seeAllCards relative mt-3 overflow-hidden rounded-md transition-all duration-300 hover:shadow-2xl sm:mt-0">
               <Link
-                href="/cards"
+                href="/auth/register"
                 className="relative z-10 flex w-full items-center justify-center rounded-md bg-gradient-to-r from-yellow-600 to-yellow-400 px-8 py-3 text-base font-medium text-white transition-all hover:scale-105 md:px-10 md:py-4"
               >
                 {t("joinUs")}

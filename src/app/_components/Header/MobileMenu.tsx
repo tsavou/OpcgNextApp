@@ -1,14 +1,16 @@
+"use client";
+
 import { NavLinks, NavLink } from "./NavLinks";
 import { AuthButtons } from "./AuthButtons";
 import { UserMenu } from "./UserMenu";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useLogoutMutation } from "@/app/auth/_hooks/queries/mutations/use-logout-mutation";
 
 interface MobileMenuProps {
   isOpen: boolean;
   links: NavLink[];
   isAuthenticated: boolean;
   onLinkClick: () => void;
-  onLogout: () => void;
 }
 
 export function MobileMenu({
@@ -16,9 +18,15 @@ export function MobileMenu({
   links,
   isAuthenticated,
   onLinkClick,
-  onLogout,
 }: MobileMenuProps) {
+  const { mutate: logout } = useLogoutMutation();
+
   if (!isOpen) return null;
+
+  const handleLogout = () => {
+    logout();
+    onLinkClick();
+  };
 
   return (
     <div className="border-t border-sky-800 bg-sky-900 md:hidden">
@@ -31,10 +39,7 @@ export function MobileMenu({
         <div className="mt-4 border-t border-sky-800 pt-4">
           {isAuthenticated ? (
             <UserMenu
-              onLogout={() => {
-                onLogout();
-                onLinkClick();
-              }}
+              onLogout={handleLogout}
               onLinkClick={onLinkClick}
               variant="mobile"
             />
