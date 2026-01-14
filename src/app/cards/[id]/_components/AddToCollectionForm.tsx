@@ -7,17 +7,19 @@ import { useCollectionQuery } from "../../hooks/queries/use-collection-query";
 import { Loader2, Plus, Minus, Check } from "lucide-react";
 import { useAuth } from "@/app/auth/_hooks/use-auth";
 import { useRouter } from "next/navigation";
+import { Card } from "@/app/cards/types/card";
+import { getCardUniqueId } from "../../helpers/card";
 
 interface AddToCollectionFormProps {
-  cardId: string;
+  card: Card;
 }
 
-export function AddToCollectionForm({ cardId }: AddToCollectionFormProps) {
+  export function AddToCollectionForm({ card }: AddToCollectionFormProps) {
   const router = useRouter();
   const { user } = useAuth();
   
   // 1. Récupérer la donnée (Query)
-  const { data: currentQuantity = 0, isLoading: isLoadingQuery } = useCollectionQuery(cardId);
+  const { data: currentQuantity = 0, isLoading: isLoadingQuery } = useCollectionQuery(getCardUniqueId(card));
 
   // 2. Initialiser le formulaire (Form Hook)
   const form = useCollectionForm(currentQuantity);
@@ -36,7 +38,7 @@ export function AddToCollectionForm({ cardId }: AddToCollectionFormProps) {
       router.push("/auth/login");
       return;
     }
-    updateCollection({ cardId, quantity: data.quantity });
+    updateCollection({ card, quantity: data.quantity });
   };
 
   // Handlers pour les boutons (Simulent la soumission du form)

@@ -2,6 +2,8 @@
 
 import { LibraryBig, Layers, TrendingUp, Star } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useCollectionStatsQuery } from "../_hooks/queries/use-collection-stats-query";
+import { Skeleton } from "@/app/_components/Skeleton";
 
 interface StatCardProps {
   icon: React.ReactNode;
@@ -40,10 +42,37 @@ function StatCard({ icon, label, value, subtitle, color }: StatCardProps) {
 
 export function CollectionStats() {
   const t = useTranslations("profile");
+  const { data: stats, isLoading, error } = useCollectionStatsQuery();
 
-  // TODO: Remplacer par des données réelles depuis Supabase
-  // Pour l'instant, on affiche des valeurs de démonstration
-  const stats = {
+  if (isLoading) {
+    return (
+      <div className="rounded-2xl border border-slate-700 bg-slate-800/50 p-6 shadow-lg backdrop-blur-sm">
+        <h3 className="mb-6 text-xl font-bold text-white">
+          {t("collectionStats")}
+        </h3>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[...Array(4)].map((_, i) => (
+            <Skeleton key={i} className="h-32 rounded-xl" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="rounded-2xl border border-red-700/50 bg-red-900/20 p-6 shadow-lg backdrop-blur-sm">
+        <h3 className="mb-6 text-xl font-bold text-white">
+          {t("collectionStats")}
+        </h3>
+        <p className="text-sm text-red-400">
+          Erreur lors du chargement des statistiques
+        </p>
+      </div>
+    );
+  }
+
+  const statsData = stats || {
     totalCards: 0,
     totalSets: 0,
     collectionValue: 0,
@@ -60,34 +89,34 @@ export function CollectionStats() {
         <StatCard
           icon={<LibraryBig className="h-6 w-6" />}
           label={t("totalCards")}
-          value={stats.totalCards}
+          value={statsData.totalCards}
           subtitle={t("inYourCollection")}
           color="sky"
         />
         <StatCard
           icon={<Layers className="h-6 w-6" />}
           label={t("collectedSets")}
-          value={stats.totalSets}
+          value={statsData.totalSets}
           subtitle={t("differentSets")}
           color="yellow"
         />
         <StatCard
           icon={<TrendingUp className="h-6 w-6" />}
           label={t("estimatedValue")}
-          value={`${stats.collectionValue.toLocaleString("fr-FR")} €`}
+          value={`${statsData.collectionValue.toLocaleString("fr-FR")} €`}
           subtitle={t("marketPrice")}
           color="green"
         />
         <StatCard
           icon={<Star className="h-6 w-6" />}
           label={t("rareCards")}
-          value={stats.rareCards}
+          value={statsData.rareCards}
           subtitle={t("rareCardsSubtitle")}
           color="purple"
         />
       </div>
 
-      {stats.totalCards === 0 && (
+      {statsData.totalCards === 0 && (
         <div className="mt-6 rounded-lg border border-yellow-700/50 bg-yellow-900/20 p-4 text-center backdrop-blur-sm">
           <p className="text-sm text-yellow-400">{t("emptyCollection")}</p>
         </div>

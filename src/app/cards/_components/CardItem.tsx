@@ -23,7 +23,7 @@ export function CardItem({ card, isOwned = false }: CardItemProps) {
     >
       <div className="absolute right-0 -top-2 z-20 opacity-100 transition-opacity">
         <CardCollectionToggle 
-          cardId={cardUniqueId} 
+          card={card} 
           isOwnedInitial={isOwned} 
         />
       </div>

@@ -3,6 +3,7 @@ import global from "./global.json";
 import cardDetail from "./cardDetail.json";
 import profile from "./profile.json";
 import settings from "./settings.json";
+import collection from "./collection.json";
 
 export const en = {
   homePage,
@@ -10,4 +11,5 @@ export const en = {
   cardDetail,
   profile,
   settings,
+  collection,
 };

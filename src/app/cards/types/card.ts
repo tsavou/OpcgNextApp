@@ -1,6 +1,7 @@
 // Types pour les cartes One Piece TCG basés sur l'API réelle
 
 export interface Card {
+  card_id: string; // colonne card_id de la table user_collection (quand on possède la carte)
   card_name: string;
   card_set_id: string;
   card_image: string;

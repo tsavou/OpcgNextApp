@@ -1,0 +1,9 @@
+{
+  "title": "My Collection",
+  "subtitle": "Manage your collection of One Piece TCG cards",
+  "totalCards": "Total Cards",
+  "estimatedValue": "Estimated Value",
+  "emptyTitle": "Your collection is empty",
+  "emptyDesc": "Start exploring the catalog to find your first cards!",
+  "exploreButton": "Explore cards"
+}

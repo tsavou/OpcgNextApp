@@ -8,15 +8,18 @@ import { useUserCollectionIds } from "../hooks/queries/use-user-collection-ids";
 import { Check, Plus, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+// ✅ IMPORT DU TYPE CARD
+import { Card } from "@/app/cards/types/card";
+import { getCardUniqueId } from "../helpers/card";
 
 interface CardCollectionToggleProps {
-  cardId: string;
+  card: Card; // ✅ On remplace cardId par l'objet complet
   isOwnedInitial: boolean;
   className?: string;
 }
 
 export function CardCollectionToggle({
-  cardId,
+  card,
   isOwnedInitial,
   className,
 }: CardCollectionToggleProps) {
@@ -26,20 +29,19 @@ export function CardCollectionToggle({
   const router = useRouter();
   const { data: ownedCardIds } = useUserCollectionIds();
 
-  // Utiliser la query pour déterminer l'état actuel depuis la BDD
-  const isOwnedFromDB = ownedCardIds?.has(cardId) ?? false;
+  // On utilise getCardUniqueId pour être cohérent avec la sauvegarde
+  const cardUniqueId = getCardUniqueId(card);
+  const isOwnedFromDB = ownedCardIds?.has(cardUniqueId) ?? false;
   
-  // État local pour l'optimistic update
   const [isOwned, setIsOwned] = useState(isOwnedFromDB || isOwnedInitial);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Synchroniser l'état local avec la BDD quand les données changent
   useEffect(() => {
     setIsOwned(isOwnedFromDB);
   }, [isOwnedFromDB]);
 
   const toggleCollection = async (e: React.MouseEvent) => {
-    e.preventDefault(); // Empêche le clic de déclencher le lien vers la carte
+    e.preventDefault();
     e.stopPropagation();
 
     if (!user) {
@@ -49,34 +51,48 @@ export function CardCollectionToggle({
 
     setIsLoading(true);
 
-    // Optimistic update (changement visuel immédiat)
     const newStatus = !isOwned;
     setIsOwned(newStatus);
 
     try {
       if (newStatus) {
-        // Ajouter (Quantité 1 par défaut)
+        // ✅ C'est ici que la magie opère : On sauvegarde TOUTES les infos
         await supabase.from("user_collection").upsert(
-          { user_id: user.id, card_id: cardId, quantity: 1 },
+          {
+            user_id: user.id,
+            card_id: cardUniqueId,
+            quantity: 1,
+            // Champs pour l'affichage dans la collection sans API externe
+            card_name: card.card_name,
+            card_image: card.card_image,
+            card_set_id: card.card_set_id, // ex: OP01-001
+            set_id: card.set_id,           // ex: OP01
+            set_name: card.set_name,       // ex: Romance Dawn
+            rarity: card.rarity,
+            card_type: card.card_type,
+            card_color: card.card_color,
+            market_price: card.market_price || 0,
+          },
           { onConflict: "user_id, card_id" }
         );
       } else {
-        // Retirer
+        // Suppression standard via l'ID unique
         await supabase
           .from("user_collection")
           .delete()
           .eq("user_id", user.id)
-          .eq("card_id", cardId);
+          .eq("card_id", cardUniqueId);
       }
 
-      // Invalider le cache des IDs pour que le hook global soit à jour
       queryClient.invalidateQueries({ queryKey: ["user-collection-ids"] });
-      // Invalider aussi la query individuelle si on va sur la page détail
-      queryClient.invalidateQueries({ queryKey: ["collection", cardId] });
+      queryClient.invalidateQueries({ queryKey: ["collection", cardUniqueId] });
+
+      // Rafraîchir le router pour mettre à jour la page collection si on y est
+      router.refresh();
 
     } catch (error) {
       console.error("Erreur toggle collection:", error);
-      setIsOwned(!newStatus); // Revert en cas d'erreur
+      setIsOwned(!newStatus);
     } finally {
       setIsLoading(false);
     }

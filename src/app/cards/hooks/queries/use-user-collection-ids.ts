@@ -13,7 +13,8 @@ export function useUserCollectionIds() {
 
       const { data, error } = await supabase
         .from("user_collection")
-        .select("card_id");
+        .select("card_id")
+        .eq("user_id", user.id);
 
       if (error) throw error;
 
