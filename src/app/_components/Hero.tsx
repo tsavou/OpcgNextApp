@@ -1,9 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { useAuth } from "@/app/auth/_hooks/use-auth";
 
 export function Hero() {
   const t = useTranslations("homePage");
+  const { isAuthenticated } = useAuth();
+  
   return (
     <section className="relative flex min-h-[500px] w-full bg-slate-900 lg:relative">
       <div className="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-1/2 lg:px-8 xl:px-12">
@@ -28,10 +33,10 @@ export function Hero() {
             </Link>
 
             <Link
-              href="/auth/register"
+              href={isAuthenticated ? "/collection" : "/auth/register"}
               className="inline-flex cursor-pointer items-center justify-center rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-400 px-8 py-3.5 text-base font-bold text-slate-900 shadow-lg shadow-yellow-500/20 transition-all hover:scale-[1.02] hover:shadow-yellow-500/30 focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 focus:ring-offset-slate-900 focus:outline-none"
             >
-              {t("joinUs")}
+              {isAuthenticated ? t("viewCollection") : t("joinUs")}
             </Link>
           </div>
         </div>

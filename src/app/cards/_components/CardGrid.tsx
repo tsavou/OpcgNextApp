@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useCardsSuspenseQuery } from "@/app/cards/hooks/queries/useCardsSuspenseQuery";
 import { CardItem } from "./CardItem";
 import { getCardUniqueId } from "../helpers/card";
+import { useUserCollectionIds } from "../hooks/queries/use-user-collection-ids";
 
 export function CardGrid() {
   const t = useTranslations("cardDetail");
@@ -13,6 +14,7 @@ export function CardGrid() {
   const setName = searchParams.get("setName");
 
   const { data: cards } = useCardsSuspenseQuery(setId);
+  const { data: ownedCardIds } = useUserCollectionIds()
 
   if (!cards || cards.length === 0) {
     return (
@@ -32,9 +34,16 @@ export function CardGrid() {
   return (
     <div>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-        {cards.map((card) => (
-          <CardItem key={getCardUniqueId(card)} card={card} />
-        ))}
+        {cards.map((card) => {
+          const cardUniqueId = getCardUniqueId(card);
+          return (
+            <CardItem 
+              key={cardUniqueId} 
+              card={card} 
+              isOwned={ownedCardIds?.has(cardUniqueId) ?? false} 
+            />
+          );
+        })}
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import { CardHeader } from "./CardHeader";
 import { CardPricing } from "./CardPricing";
 import { CardVariants } from "./CardVariants";
 import { useSearchParams } from "next/navigation";
+import { AddToCollectionForm } from "./AddToCollectionForm";
 
 export function CardDetailContent({ cardSetId }: { cardSetId: string }) {
   const { data: cards } = useCardSuspenseQuery(cardSetId);
@@ -34,6 +35,12 @@ export function CardDetailContent({ cardSetId }: { cardSetId: string }) {
           <div className="space-y-6">
             <CardHeader card={mainCard} />
             <CardPricing card={mainCard} />
+            {cardUniqueId && (
+            <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+              <h3 className="mb-3 text-sm font-semibold text-gray-900">Gestion de collection</h3>
+              <AddToCollectionForm cardId={cardUniqueId} />
+            </div>
+          )}
             <CardVariants cards={cards} currentCardUniqueId={cardUniqueId} />
           </div>
         </div>
