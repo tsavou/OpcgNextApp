@@ -10,6 +10,7 @@ import { CardPricing } from "./CardPricing";
 import { CardVariants } from "./CardVariants";
 import { useSearchParams } from "next/navigation";
 import { AddToCollectionForm } from "./AddToCollectionForm";
+import { AiStrategyTip } from "./AiStrategyTip";
 
 export function CardDetailContent({ cardSetId }: { cardSetId: string }) {
   const { data: cards } = useCardSuspenseQuery(cardSetId);
@@ -30,7 +31,11 @@ export function CardDetailContent({ cardSetId }: { cardSetId: string }) {
         <CardBreadcrumb card={mainCard} />
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          <CardImageSection card={mainCard} />
+          
+          <div className="flex flex-col gap-6">
+            <CardImageSection card={mainCard} />
+            <AiStrategyTip cardId={cardUniqueId ?? ""} />
+          </div>
 
           <div className="space-y-6">
             <CardHeader card={mainCard} />
@@ -38,7 +43,7 @@ export function CardDetailContent({ cardSetId }: { cardSetId: string }) {
             {cardUniqueId && (
             <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
               <h3 className="mb-3 text-sm font-semibold text-gray-900">Gestion de collection</h3>
-              <AddToCollectionForm cardId={cardUniqueId} />
+              <AddToCollectionForm card={mainCard} />
             </div>
           )}
             <CardVariants cards={cards} currentCardUniqueId={cardUniqueId} />

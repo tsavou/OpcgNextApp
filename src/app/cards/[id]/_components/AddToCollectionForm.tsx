@@ -19,7 +19,8 @@ interface AddToCollectionFormProps {
   const { user } = useAuth();
   
   // 1. Récupérer la donnée (Query)
-  const { data: currentQuantity = 0, isLoading: isLoadingQuery } = useCollectionQuery(getCardUniqueId(card));
+  const { data: collectionItem, isLoading: isLoadingQuery } = useCollectionQuery(getCardUniqueId(card));
+  const currentQuantity = collectionItem?.quantity ?? 0;
 
   // 2. Initialiser le formulaire (Form Hook)
   const form = useCollectionForm(currentQuantity);
