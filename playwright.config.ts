@@ -8,6 +8,7 @@ import { loadEnvFile } from 'node:process';
 // import dotenv from 'dotenv';
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
+
 loadEnvFile(".env");
 
 /**
@@ -33,6 +34,10 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
+
+  /* TS Config */
+  tsconfig: "./tsconfig.playwright.json",
+
 
   /* Configure projects for major browsers */
   projects: [

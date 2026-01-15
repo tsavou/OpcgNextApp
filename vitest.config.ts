@@ -12,6 +12,9 @@ export default defineConfig({
 				inline: ["next-intl"],
 			},
 		},
+		typecheck: {
+			tsconfig: "./tsconfig.vitest.json",
+		},
 	},
 	envPrefix: "NEXT_PUBLIC_",
 	esbuild: {
