@@ -5,5 +5,8 @@
   "estimatedValue": "Estimated Value",
   "emptyTitle": "Your collection is empty",
   "emptyDesc": "Start exploring the catalog to find your first cards!",
-  "exploreButton": "Explore cards"
+  "exploreButton": "Explore cards",
+  "errorLoadingStats": "Error loading statistics",
+  "errorLoadingCollection": "Error loading collection",
+  "rareCards": "Rare Cards"
 }

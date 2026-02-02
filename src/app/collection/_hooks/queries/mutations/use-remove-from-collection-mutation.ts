@@ -28,11 +28,9 @@ export function useRemoveFromCollectionMutation() {
       queryClient.setQueryData(["collection-item", cardId], null);
 
       queryClient.invalidateQueries({ queryKey: ["collection"] });
+      queryClient.invalidateQueries({ queryKey: ["collection-items"] });
       queryClient.invalidateQueries({ queryKey: ["collection-stats"] });
       queryClient.invalidateQueries({ queryKey: ["user-collection-ids"] });
-
-      // Rafraîchit le Server Component de la page collection pour mettre à jour l'affichage
-      router.refresh();
     },
     onError: (error) => {
       console.error("Erreur suppression collection:", error);

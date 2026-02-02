@@ -28,6 +28,7 @@ export function useAddToCollectionMutation() {
       queryClient.invalidateQueries({ queryKey: ["collection-item", cardId] });
       
       queryClient.invalidateQueries({ queryKey: ["collection"] });
+      queryClient.invalidateQueries({ queryKey: ["collection-items"] });
       queryClient.invalidateQueries({ queryKey: ["collection-stats"] });
       queryClient.invalidateQueries({ queryKey: ["user-collection-ids"] });
     },
