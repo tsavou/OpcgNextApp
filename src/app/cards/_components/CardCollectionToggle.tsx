@@ -1,10 +1,10 @@
 "use client";
 
-import { useUserCollectionIds } from "../hooks/queries/use-user-collection-ids";
+import { useUserCollectionIds } from "../../collection/_hooks/queries/use-user-collection-ids";
 import { Check, Plus, Loader2, Trash2 } from "lucide-react";
 import { Card } from "@/app/cards/types/card";
 import { getCardUniqueId } from "../helpers/card";
-import { useRemoveFromCollectionMutation } from "@/app/cards/hooks/queries/mutations/use-remove-from-collection-mutation";
+import { useRemoveFromCollectionMutation } from "@/app/collection/_hooks/queries/mutations/use-remove-from-collection-mutation";
 import { AddToCollectionFormModal } from "../../collection/_components/AddToCollectionFormModal";
 import { useState } from "react";
 

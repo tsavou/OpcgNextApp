@@ -1,9 +1,9 @@
 "use client";
 
-import { useCollectionQuery } from "../../hooks/queries/use-collection-query";
+import { useCollectionQuery } from "../../../collection/_hooks/queries/use-collection-query";
 import { Card } from "@/app/cards/types/card";
 import { AddToCollectionFormModal } from "@/app/collection/_components/AddToCollectionFormModal"; 
-import { useRemoveFromCollectionMutation } from "@/app/cards/hooks/queries/mutations/use-remove-from-collection-mutation";
+import { useRemoveFromCollectionMutation } from "@/app/collection/_hooks/queries/mutations/use-remove-from-collection-mutation";
 import { Plus, Check, Trash2, Loader2 } from "lucide-react";
 import { getCardUniqueId } from "../../helpers/card";
 import { useState } from "react";

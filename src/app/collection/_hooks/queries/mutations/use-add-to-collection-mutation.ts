@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Card } from "@/app/cards/types/card";
 import { getCardUniqueId } from "@/app/cards/helpers/card";
 import { upsertCollectionItem } from "@/lib/services/collection.service";
-import { CollectionFormData } from "@/app/cards/hooks/use-collection-form";
+import { CollectionFormData } from "@/app/collection/_hooks/use-collection-form";
 import { useAuth } from "@/app/auth/_hooks/use-auth";
 import { useRouter } from "next/navigation";
 

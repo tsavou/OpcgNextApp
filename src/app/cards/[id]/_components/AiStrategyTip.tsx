@@ -1,6 +1,6 @@
 "use client";
 
-import { useCollectionQuery } from "../../hooks/queries/use-collection-query";
+import { useCollectionQuery } from "../../../collection/_hooks/queries/use-collection-query";
 import { Sparkles, Bot } from "lucide-react";
 
 interface AiStrategyTipProps {

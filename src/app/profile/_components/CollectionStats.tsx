@@ -2,7 +2,7 @@
 
 import { LibraryBig, Layers, TrendingUp, Star } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useCollectionStatsQuery } from "../_hooks/queries/use-collection-stats-query";
+import { useCollectionStatsQuery } from "../../collection/_hooks/queries/use-collection-stats-query";
 import { Skeleton } from "@/app/_components/Skeleton";
 
 interface StatCardProps {

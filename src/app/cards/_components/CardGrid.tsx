@@ -2,10 +2,10 @@
 
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useCardsSuspenseQuery } from "@/app/cards/hooks/queries/useCardsSuspenseQuery";
+import { useCardsSuspenseQuery } from "@/app/cards/_hooks/queries/useCardsSuspenseQuery";
 import { CardItem } from "./CardItem";
 import { getCardUniqueId } from "../helpers/card";
-import { useUserCollectionIds } from "../hooks/queries/use-user-collection-ids";
+import { useUserCollectionIds } from "../../collection/_hooks/queries/use-user-collection-ids";
 
 export function CardGrid() {
   const t = useTranslations("cardDetail");

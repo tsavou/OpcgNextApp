@@ -1,6 +1,6 @@
 "use client";
 
-import { useCardSuspenseQuery } from "../../hooks/queries/useCardSuspenseQuery";
+import { useCardSuspenseQuery } from "../../_hooks/queries/useCardSuspenseQuery";
 import { Card } from "../../types/card";
 import { getCardUniqueId } from "../../helpers/card";
 import { CardBreadcrumb } from "./CardBreadcrumb";

@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Card } from "@/app/cards/types/card";
-import { useAddToCollectionMutation } from "../../cards/hooks/queries/mutations/use-add-to-collection-mutation";
-import { CollectionFormData, useCollectionForm } from "../../cards/hooks/use-collection-form";
+import { useAddToCollectionMutation } from "../_hooks/queries/mutations/use-add-to-collection-mutation";
+import { CollectionFormData, useCollectionForm } from "../_hooks/use-collection-form";
 import { Loader2, Save } from "lucide-react";
 import { Modal } from "@/app/_components/Modal";
 import { FormSelect } from "@/app/_components/form/FormSelect";

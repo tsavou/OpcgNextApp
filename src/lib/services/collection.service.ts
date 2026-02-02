@@ -1,5 +1,5 @@
 import { getCardUniqueId } from "@/app/cards/helpers/card";
-import { CollectionFormData } from "@/app/cards/hooks/use-collection-form";
+import { CollectionFormData } from "@/app/collection/_hooks/use-collection-form";
 import { Card } from "@/app/cards/types/card";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
