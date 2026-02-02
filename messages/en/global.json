@@ -35,5 +35,6 @@
   "alreadyHaveAccount": "Already have an account?",
   "checkSpam": "Don't forget to check your spam folder if needed.",
   "errorOccurred": "An error occurred",
-  "noTokenError": "No token hash or type provided"
+  "noTokenError": "No token hash or type provided",
+  "changeLanguage": "Change language"
 }

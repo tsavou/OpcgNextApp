@@ -12,5 +12,6 @@
   "marketPrice": "Prix du marché",
   "rareCards": "Cartes rares",
   "rareCardsSubtitle": "SR, SEC, SP",
-  "emptyCollection": "Commencez à ajouter des cartes à votre collection pour voir vos statistiques !"
+  "emptyCollection": "Commencez à ajouter des cartes à votre collection pour voir vos statistiques !",
+  "errorLoadingStats": "Erreur lors du chargement des statistiques"
 }

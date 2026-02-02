@@ -23,7 +23,7 @@ export default async function CollectionPage() {
         <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <h1 className="text-3xl font-bold text-white md:text-4xl">{t("title")}</h1>
-            <p className="mt-2 text-slate-400">Gérez votre portfolio One Piece TCG</p>
+            <p className="mt-2 text-slate-400">{t("subtitle")}</p>
           </div>
 
           <AsyncBoundary

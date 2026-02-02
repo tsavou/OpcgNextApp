@@ -8,5 +8,22 @@
   "exploreButton": "Explore cards",
   "errorLoadingStats": "Error loading statistics",
   "errorLoadingCollection": "Error loading collection",
-  "rareCards": "Rare Cards"
+  "rareCards": "Rare Cards",
+  "noOtherInfo": "No other info",
+  "addToCollection": "Add to collection",
+  "removeFromCollection": "Remove from collection",
+  "clickToRemove": "Click to remove from collection",
+  "removeConfirm": "Remove from collection?",
+  "removeCardConfirm": "Remove this card from collection?",
+  "purchased": "Purchased:",
+  "condition": "Condition",
+  "language": "Language",
+  "gradedCard": "Graded / Noted card",
+  "gradingService": "Grading service",
+  "gradeNote": "Grade",
+  "purchasePrice": "Purchase price",
+  "addToMyCollection": "Add to my collection",
+  "remove": "Remove",
+  "owned": "Owned",
+  "add": "Add"
 }

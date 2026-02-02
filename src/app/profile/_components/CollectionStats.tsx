@@ -66,7 +66,7 @@ export function CollectionStats() {
           {t("collectionStats")}
         </h3>
         <p className="text-sm text-red-400">
-          Erreur lors du chargement des statistiques
+          {t("errorLoadingStats")}
         </p>
       </div>
     );

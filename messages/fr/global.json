@@ -4,7 +4,7 @@
   "cards": "Cartes",
   "decks": "Decks",
   "collection": "Collection",
-  "settings": "Settings",
+  "settings": "Paramètres",
   "logout": "Se déconnecter",
   "login": "Se connecter",
   "register": "S'inscrire",
@@ -35,5 +35,6 @@
   "alreadyHaveAccount": "Vous avez déjà un compte ?",
   "checkSpam": "Pensez à vérifier vos spams si besoin.",
   "errorOccurred": "Une erreur est survenue",
-  "noTokenError": "Aucun token hash ou type fourni"
+  "noTokenError": "Aucun token hash ou type fourni",
+  "changeLanguage": "Changer de langue"
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Languages } from "lucide-react";
 import { useState } from "react";
 
@@ -12,6 +12,7 @@ interface LanguageSwitcherProps {
 export function LanguageSwitcher({
   dropdownPosition = "right",
 }: LanguageSwitcherProps = {}) {
+  const t = useTranslations("global");
   const router = useRouter();
   const locale = useLocale();
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +48,7 @@ export function LanguageSwitcher({
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="group flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition-all hover:bg-slate-800/80 hover:text-yellow-400 hover:shadow-lg hover:shadow-yellow-500/10"
-        aria-label="Change language"
+        aria-label={t("changeLanguage")}
       >
         <Languages className="h-4 w-4 transition-transform group-hover:rotate-12" />
         <span className="hidden text-lg sm:inline">{currentLanguage.flag}</span>

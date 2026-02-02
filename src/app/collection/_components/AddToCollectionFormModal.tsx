@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Card } from "@/app/cards/types/card";
 import { useAddToCollectionMutation } from "../_hooks/queries/mutations/use-add-to-collection-mutation";
 import { CollectionFormData, useCollectionForm } from "../_hooks/use-collection-form";
@@ -16,6 +17,7 @@ interface AddToCollectionFormModalProps {
 }
 
 export function AddToCollectionFormModal({ card, children }: AddToCollectionFormModalProps) {
+  const t = useTranslations("collection");
   const [isOpen, setIsOpen] = useState(false);
   
   const { mutate: addToCollection, isPending } = useAddToCollectionMutation();
@@ -49,7 +51,7 @@ export function AddToCollectionFormModal({ card, children }: AddToCollectionForm
       <Modal 
         isOpen={isOpen} 
         onClose={() => setIsOpen(false)}
-        title="Ajouter à la collection"
+        title={t("addToCollection")}
       >
         <div className="mb-6 -mt-2 flex gap-3 items-center p-3 bg-slate-800/50 rounded-lg border border-slate-800">
            {card.card_image && (
@@ -65,7 +67,7 @@ export function AddToCollectionFormModal({ card, children }: AddToCollectionForm
             
             <div className="grid grid-cols-2 gap-4">
             <FormSelect
-              label="État"
+              label={t("condition")}
               {...form.register("condition")}
               error={form.formState.errors.condition?.message}
               options={[
@@ -80,7 +82,7 @@ export function AddToCollectionFormModal({ card, children }: AddToCollectionForm
             />
 
             <FormSelect
-              label="Langue"
+              label={t("language")}
               {...form.register("language")}
               error={form.formState.errors.language?.message}
               options={[
@@ -99,13 +101,13 @@ export function AddToCollectionFormModal({ card, children }: AddToCollectionForm
                    {...form.register("is_graded")}
                    className="w-4 h-4 rounded border-slate-700 bg-slate-900 text-yellow-500 focus:ring-yellow-500"
                  />
-                 <label htmlFor="check_graded_modal" className="text-sm font-medium cursor-pointer select-none">Carte Gradée / Notée</label>
+                 <label htmlFor="check_graded_modal" className="text-sm font-medium cursor-pointer select-none">{t("gradedCard")}</label>
                </div>
 
                {isGraded && (
                  <div className="grid grid-cols-2 gap-3 animate-in fade-in slide-in-from-top-1">
                     <FormSelect
-                      label="Service de gradage"
+                      label={t("gradingService")}
                       {...form.register("grading_service")}
                       error={form.formState.errors.grading_service?.message}
                       options={[
@@ -116,7 +118,7 @@ export function AddToCollectionFormModal({ card, children }: AddToCollectionForm
                       ]}
                     />
                     <FormInput
-                      label="Note"
+                      label={t("gradeNote")}
                       {...form.register("grade_note")}
                       error={form.formState.errors.grade_note?.message}
                       type="number"
@@ -129,7 +131,7 @@ export function AddToCollectionFormModal({ card, children }: AddToCollectionForm
             </div>
 
             <FormInput
-              label="Prix d'achat"
+              label={t("purchasePrice")}
               type="number"
               step="0.01"
               placeholder="0.00"
@@ -145,7 +147,7 @@ export function AddToCollectionFormModal({ card, children }: AddToCollectionForm
                 className="w-full bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-transform active:scale-[0.98]"
               >
                 {isPending ? <Loader2 className="animate-spin w-5 h-5" /> : <Save className="w-5 h-5" />}
-                Ajouter à ma collection
+                {t("addToMyCollection")}
               </button>
             </div>
           </form>

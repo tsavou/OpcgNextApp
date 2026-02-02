@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { CollectionItem } from "@/lib/services/collection.service";
 import { Info, Sparkles, Coins } from "lucide-react";
 
@@ -8,6 +11,8 @@ interface CollectionInfoBadgeProps {
 export function CollectionInfoBadge({
   collectionDetails,
 }: CollectionInfoBadgeProps) {
+  const t = useTranslations("collection");
+
   return (
     <div className="group/badge relative z-30 inline-block">
       <div className="flex h-8 w-8 cursor-help items-center justify-center rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400 shadow-lg backdrop-blur-md transition-transform hover:scale-110 hover:bg-sky-500 hover:text-white">
@@ -37,13 +42,13 @@ export function CollectionInfoBadge({
             <div className="flex items-center gap-1.5 text-emerald-400">
               <Coins className="h-3 w-3" />
               <span>
-                Acheté : <span className="font-bold">{collectionDetails.purchase_price} €</span>
+                {t("purchased")} <span className="font-bold">{collectionDetails.purchase_price} €</span>
               </span>
             </div>
           )}
           
           {!collectionDetails.is_graded && (!collectionDetails.purchase_price || collectionDetails.purchase_price === 0) && (
-             <div className="text-slate-500 italic">No other info</div>
+             <div className="text-slate-500 italic">{t("noOtherInfo")}</div>
           )}
         </div>
       </div>
