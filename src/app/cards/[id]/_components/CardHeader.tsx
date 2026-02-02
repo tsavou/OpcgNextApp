@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { Card } from "../../types/card";
+import { CollectionButton } from "./CollectionButton";
 
 interface CardHeaderProps {
   card: Card;
@@ -13,7 +14,10 @@ export function CardHeader({ card }: CardHeaderProps) {
   return (
     <div className="space-y-3">
       <div>
-        <h1 className="mb-2 text-3xl font-bold text-white">{card.card_name}</h1>
+        <div className="flex justify-between items-center">
+          <h1 className="mb-2 text-3xl font-bold text-white">{card.card_name}</h1>
+          <CollectionButton card={card} />
+        </div>
         <div className="flex flex-wrap items-center gap-2">
           <Link
             href={`/cards?setId=${card.set_id}&setName=${card.set_name}`}

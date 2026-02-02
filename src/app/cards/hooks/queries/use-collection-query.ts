@@ -14,10 +14,11 @@ export function useCollectionQuery(cardId: string) {
 
   return useQuery({
     queryKey: ["collection", cardId, user?.id],
-    queryFn: async (): Promise<CollectionItem> => {
-      if (!user) return { quantity: 0, strategy_tip: null };
-      return getCollectionItem(supabase, user.id, cardId);
+    queryFn: async (): Promise<CollectionItem | null> => {
+      if (!user) return null;
+      return getCollectionItem(supabase, user.id, cardId) ?? null;
     },
     enabled: !!user,
+    staleTime: 1000 * 60 * 5,
   });
 }

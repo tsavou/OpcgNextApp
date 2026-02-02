@@ -1,24 +1,31 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { z } from "zod";
 
-const CollectionFormSchema = z.object({
-  quantity: z.number().int().min(0, "La quantité doit être positive"),
+export const CollectionFormSchema = z.object({
   condition: z.enum(["M", "NM", "EX", "GD", "LP", "PL", "PO"]),
   language: z.enum(["FR", "EN", "JP"]),
-  notes: z.string().optional(),
-  purchase_price: z.number().min(0, "Le prix d'achat doit être positif").optional(),
+  is_graded: z.boolean(),
+  grading_service: z.enum(["CGC", "PSA", "BGS", "SGC"]).optional(),
+  grade_note: z.string().optional(),
+  purchase_price: z.preprocess(
+    (v) =>
+      v === undefined || (typeof v === "number" && Number.isNaN(v)) ? 0 : v,
+    z.number().min(0, "Le prix d'achat doit être positif")
+  ),
 });
 
 export type CollectionFormData = z.infer<typeof CollectionFormSchema>;
 
-export function useCollectionForm(defaultQuantity: number = 0) {
+export function useCollectionForm(defaultValues?: Partial<CollectionFormData>) {
   return useForm<CollectionFormData>({
-    resolver: zodResolver(CollectionFormSchema),
+    resolver: zodResolver(CollectionFormSchema) as Resolver<CollectionFormData>,
     defaultValues: {
-      quantity: defaultQuantity,
       condition: "NM",
       language: "EN",
+      is_graded: false,
+      purchase_price: 0,
+      ...defaultValues,
     },
   });
 }

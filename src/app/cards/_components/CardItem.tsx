@@ -4,15 +4,18 @@ import { Card } from "@/app/cards/types/card";
 import Link from "next/link";
 import { getCardUniqueId } from "../helpers/card";
 import { CardCollectionToggle } from "./CardCollectionToggle";
+import { CollectionItem } from "@/lib/services/collection.service";
+import { CollectionInfoBadge } from "@/app/collection/_components/CollectionInfoBadge";
 
 interface CardItemProps {
   card: Card;
   onClick?: (card: Card) => void;
   className?: string;
   isOwned?: boolean;
+  collectionDetails?: CollectionItem;
 }
 
-export function CardItem({ card, isOwned = false }: CardItemProps) {
+export function CardItem({ card, isOwned = false, collectionDetails }: CardItemProps) {
   const t = useTranslations("cardDetail");
   const cardUniqueId = getCardUniqueId(card);
 
@@ -21,7 +24,18 @@ export function CardItem({ card, isOwned = false }: CardItemProps) {
       href={`/cards/${card.card_set_id}?cardId=${encodeURIComponent(cardUniqueId)}`}
       className={`relative group cursor-pointer rounded-lg bg-slate-700/30 transition-all`}
     >
-      <div className="absolute right-0 -top-2 z-20 opacity-100 transition-opacity">
+      {collectionDetails && (
+        <div className="absolute left-0 -top-2 z-20 w-fit" onClick={(e) => e.stopPropagation()}>
+          <CollectionInfoBadge 
+            collectionDetails={collectionDetails}
+          />
+        </div>
+      )}
+
+      <div
+        className="absolute right-0 -top-2 z-20 opacity-100 transition-opacity"
+        onClick={(e) => e.stopPropagation()}
+      >
         <CardCollectionToggle 
           card={card} 
           isOwnedInitial={isOwned} 

@@ -16,67 +16,30 @@ export default async function CollectionPage() {
     redirect("/auth/login");
   }
 
-  let collectionItems;
-  try {
-    collectionItems = await getCollectionItems(supabase, user.id);
-  } catch (error) {
-    console.error("Collection error:", error);
-    return (
-      <div className="p-8 text-red-500">
-        Erreur de chargement du trésor.
-      </div>
-    );
-  }
+  const collectionItems = await getCollectionItems(supabase, user.id) as unknown as Card[];
 
-  const myCards = collectionItems.map((item) => ({
-    card_id: item.card_id,
-    card_name: item.card_name ?? "Nom inconnu",
-    card_image: item.card_image,
-    card_set_id: item.card_set_id,
-    set_id:
-      item.set_id ?? item.card_set_id?.split("-")[0] ?? "Unknown",
-    rarity: item.rarity,
-    market_price: item.market_price ?? 0,
-    card_type: item.card_type,
-    card_color: item.card_color,
-    _quantity: item.quantity,
-  })) as unknown as Card[];
-
-  const totalCardsCount = collectionItems.reduce(
-    (acc, curr) => acc + curr.quantity,
-    0
-  );
-  const totalValue = collectionItems.reduce(
-    (acc, curr) => acc + (curr.market_price ?? 0) * curr.quantity,
-    0
-  );
+  const totalValue = collectionItems.reduce((acc, curr) => acc + (curr.market_price ?? 0), 0);
+  const totalCards = collectionItems.length;
 
   return (
-    <div className="min-h-screen bg-slate-900 pb-20 pt-8">
+    <div className="min-h-screen pb-20 pt-8">
       <div className="container mx-auto px-4">
         
-        {/* Header */}
-        <div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-white md:text-4xl">
-              {t("title")}
-            </h1>
-            <p className="mt-2 text-slate-400">
-              {t("subtitle")}
-            </p>
+            <h1 className="text-3xl font-bold text-white md:text-4xl">{t("title")}</h1>
+            <p className="mt-2 text-slate-400">Gérez votre portfolio One Piece TCG</p>
           </div>
 
           <div className="flex gap-4">
-            {/* Compteur Cartes */}
             <div className="rounded-xl border border-slate-700 bg-slate-800 p-4 min-w-[140px]">
               <div className="mb-1 flex items-center gap-2 text-slate-400">
                 <Trophy className="h-4 w-4 text-yellow-500" />
                 <span className="text-xs font-bold uppercase">{t("totalCards")}</span>
               </div>
-              <div className="text-2xl font-bold text-white">{totalCardsCount}</div>
+              <div className="text-2xl font-bold text-white">{totalCards}</div>
             </div>
-            
-            {/* Compteur Valeur */}
+
             <div className="rounded-xl border border-slate-700 bg-slate-800 p-4 min-w-[140px]">
               <div className="mb-1 flex items-center gap-2 text-slate-400">
                 <Coins className="h-4 w-4 text-emerald-400" />
@@ -89,9 +52,8 @@ export default async function CollectionPage() {
           </div>
         </div>
 
-        {/* Grille */}
-        {myCards.length > 0 ? (
-          <CollectionGrid cards={myCards} />
+        {collectionItems.length > 0 ? (
+          <CollectionGrid cards={collectionItems} />
         ) : (
           <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-700 bg-slate-800/50 py-20 text-center">
             <div className="mb-4 rounded-full bg-slate-800 p-4">
@@ -103,9 +65,9 @@ export default async function CollectionPage() {
             </p>
             <Link
               href="/#sets"
-              className="mt-6 inline-flex items-center rounded-lg bg-yellow-500 px-6 py-2.5 font-bold text-slate-900 transition-colors hover:bg-yellow-400"
+              className="mt-6 inline-flex items-center rounded-lg bg-yellow-500 px-6 py-3 font-bold text-slate-900 transition-colors hover:bg-yellow-400"
             >
-              {t("exploreButton")}
+              Explorer les cartes
             </Link>
           </div>
         )}

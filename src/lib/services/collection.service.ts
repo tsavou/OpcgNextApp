@@ -1,26 +1,21 @@
+import { getCardUniqueId } from "@/app/cards/helpers/card";
+import { CollectionFormData } from "@/app/cards/hooks/use-collection-form";
+import { Card } from "@/app/cards/types/card";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 // ─── Types exposés ───────────────────────────────────────────────────────
 
-/** Données d’un item de collection pour une carte (quantity + strategy_tip). */
+/** Données d’un item de collection pour une carte. */
 export interface CollectionItem {
-  quantity: number;
-  strategy_tip: string | null;
-}
-
-/** Statistiques agrégées de la collection. */
-export interface CollectionStats {
-  totalCards: number;
-  totalSets: number;
-  collectionValue: number;
-  rareCards: number;
-}
-
-/** Ligne brute user_collection telle que retournée par Supabase. */
-export interface CollectionRow {
   user_id: string;
   card_id: string;
   quantity: number;
+  condition: string;
+  language: string;
+  is_graded: boolean;
+  grading_service: string | null;
+  grade_note: string | null;
+  purchase_price: number | null;
   card_name: string | null;
   card_image: string | null;
   card_set_id: string | null;
@@ -32,49 +27,37 @@ export interface CollectionRow {
   market_price: number | null;
   strategy_tip: string | null;
   created_at?: string;
-  updated_at?: string;
 }
 
-/** Payload pour ajouter ou mettre à jour un item (upsert). */
-export interface UpsertCollectionItemPayload {
-  user_id: string;
-  card_id: string;
-  quantity: number;
-  card_name: string;
-  card_image: string;
-  card_set_id: string;
-  set_id: string;
-  set_name: string;
-  rarity: string;
-  card_type: string;
-  card_color: string;
-  market_price: number;
+/** Statistiques agrégées de la collection. */
+export interface CollectionStats {
+  totalCards: number;
+  totalSets: number;
+  collectionValue: number;
+  rareCards: number;
 }
+
 
 // ─── Lecture ─────────────────────────────────────────────────────────────
 
 /**
  * Récupère l’item de collection pour un utilisateur et une carte.
- * Retourne quantity + strategy_tip (ou valeurs par défaut si absent).
  */
 export async function getCollectionItem(
   client: SupabaseClient,
   userId: string,
   cardId: string
-): Promise<CollectionItem> {
+): Promise<CollectionItem | null> {
   const { data, error } = await client
     .from("user_collection")
-    .select("quantity, strategy_tip")
+    .select("*")
     .eq("user_id", userId)
     .eq("card_id", cardId)
     .maybeSingle();
 
   if (error) throw error;
 
-  return {
-    quantity: data?.quantity ?? 0,
-    strategy_tip: data?.strategy_tip ?? null,
-  };
+  return data as CollectionItem | null;
 }
 
 /**
@@ -117,19 +100,19 @@ export async function getCollectionStats(
     };
   }
 
-  const totalCards = rows.reduce((acc, r) => acc + (r.quantity ?? 0), 0);
+  const totalCards = rows.length;
+
   const totalSets = new Set(
     rows.map((r) => r.set_id).filter((id): id is string => !!id)
   ).size;
-  const collectionValue = rows.reduce(
-    (acc, r) => acc + (r.market_price ?? 0) * (r.quantity ?? 0),
-    0
-  );
+
+  const collectionValue = rows.reduce((acc, r) => acc + (r.market_price ?? 0), 0);
   const rareRarities = ["SR", "SEC", "SP"];
+
   const rareCards = rows.reduce(
     (acc, r) =>
       r.rarity && rareRarities.includes(r.rarity)
-        ? acc + (r.quantity ?? 0)
+        ? acc + 1
         : acc,
     0
   );
@@ -148,8 +131,8 @@ export async function getCollectionStats(
 export async function getCollectionItems(
   client: SupabaseClient,
   userId: string
-): Promise<CollectionRow[]> {
-  const { data, error } = await client
+): Promise<CollectionItem[]> {
+  const { data, error } = await client  
     .from("user_collection")
     .select("*")
     .eq("user_id", userId)
@@ -167,8 +150,29 @@ export async function getCollectionItems(
  */
 export async function upsertCollectionItem(
   client: SupabaseClient,
-  payload: UpsertCollectionItemPayload
-): Promise<CollectionRow> {
+  userId: string,
+  card: Card,
+  formData: CollectionFormData
+): Promise<CollectionItem> {
+
+  const cardId = getCardUniqueId(card);
+
+  const payload = {
+    user_id: userId,
+    card_id: cardId,
+    quantity: 1,
+    ...formData,
+    card_name: card.card_name,
+    card_image: card.card_image,
+    card_set_id: card.card_set_id,
+    set_id: card.set_id,
+    set_name: card.set_name,
+    rarity: card.rarity,
+    card_type: card.card_type,
+    card_color: card.card_color,
+    market_price: card.market_price ?? 0,
+  };
+
   const { data, error } = await client
     .from("user_collection")
     .upsert(payload, { onConflict: "user_id, card_id" })
@@ -176,7 +180,7 @@ export async function upsertCollectionItem(
     .single();
 
   if (error) throw error;
-  return data as CollectionRow;
+  return data as CollectionItem;
 }
 
 /**
