@@ -8,9 +8,12 @@ import { useUserCollectionIds } from "../hooks/queries/use-user-collection-ids";
 import { Check, Plus, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-// ✅ IMPORT DU TYPE CARD
 import { Card } from "@/app/cards/types/card";
 import { getCardUniqueId } from "../helpers/card";
+import {
+  upsertCollectionItem,
+  deleteCollectionItem,
+} from "@/lib/services/collection.service";
 
 interface CardCollectionToggleProps {
   card: Card; // ✅ On remplace cardId par l'objet complet
@@ -29,10 +32,8 @@ export function CardCollectionToggle({
   const router = useRouter();
   const { data: ownedCardIds } = useUserCollectionIds();
 
-  // On utilise getCardUniqueId pour être cohérent avec la sauvegarde
   const cardUniqueId = getCardUniqueId(card);
   const isOwnedFromDB = ownedCardIds?.has(cardUniqueId) ?? false;
-  
   const [isOwned, setIsOwned] = useState(isOwnedFromDB || isOwnedInitial);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -50,46 +51,32 @@ export function CardCollectionToggle({
     }
 
     setIsLoading(true);
-
     const newStatus = !isOwned;
     setIsOwned(newStatus);
 
     try {
       if (newStatus) {
-        // ✅ C'est ici que la magie opère : On sauvegarde TOUTES les infos
-        await supabase.from("user_collection").upsert(
-          {
-            user_id: user.id,
-            card_id: cardUniqueId,
-            quantity: 1,
-            // Champs pour l'affichage dans la collection sans API externe
-            card_name: card.card_name,
-            card_image: card.card_image,
-            card_set_id: card.card_set_id, // ex: OP01-001
-            set_id: card.set_id,           // ex: OP01
-            set_name: card.set_name,       // ex: Romance Dawn
-            rarity: card.rarity,
-            card_type: card.card_type,
-            card_color: card.card_color,
-            market_price: card.market_price || 0,
-          },
-          { onConflict: "user_id, card_id" }
-        );
+        await upsertCollectionItem(supabase, {
+          user_id: user.id,
+          card_id: cardUniqueId,
+          quantity: 1,
+          card_name: card.card_name,
+          card_image: card.card_image,
+          card_set_id: card.card_set_id,
+          set_id: card.set_id,
+          set_name: card.set_name,
+          rarity: card.rarity,
+          card_type: card.card_type,
+          card_color: card.card_color,
+          market_price: card.market_price ?? 0,
+        });
       } else {
-        // Suppression standard via l'ID unique
-        await supabase
-          .from("user_collection")
-          .delete()
-          .eq("user_id", user.id)
-          .eq("card_id", cardUniqueId);
+        await deleteCollectionItem(supabase, user.id, cardUniqueId);
       }
 
       queryClient.invalidateQueries({ queryKey: ["user-collection-ids"] });
       queryClient.invalidateQueries({ queryKey: ["collection", cardUniqueId] });
-
-      // Rafraîchir le router pour mettre à jour la page collection si on y est
       router.refresh();
-
     } catch (error) {
       console.error("Erreur toggle collection:", error);
       setIsOwned(!newStatus);

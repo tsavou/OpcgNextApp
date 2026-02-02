@@ -4,61 +4,52 @@ import { getTranslations } from "next-intl/server";
 import { CollectionGrid } from "./_components/CollectionGrid";
 import Link from "next/link";
 import { Coins, Inbox, Trophy } from "lucide-react";
-import { Card } from "@/app/cards/types/card"; // Import du type pour le casting
+import { Card } from "@/app/cards/types/card";
+import { getCollectionItems } from "@/lib/services/collection.service";
 
 export default async function CollectionPage() {
   const t = await getTranslations("collection");
   const supabase = await createClient();
 
-  // 1. Auth Check
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
     redirect("/auth/login");
   }
 
-  // 2. Récupérer ma collection
-  const { data: collectionItems, error } = await supabase
-    .from("user_collection")
-    .select("*") 
-    .eq("user_id", user.id)
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    console.error("Supabase error:", error);
-    return <div className="p-8 text-red-500">Erreur de chargement du trésor.</div>;
+  let collectionItems;
+  try {
+    collectionItems = await getCollectionItems(supabase, user.id);
+  } catch (error) {
+    console.error("Collection error:", error);
+    return (
+      <div className="p-8 text-red-500">
+        Erreur de chargement du trésor.
+      </div>
+    );
   }
 
-  // 3. Mapper vers le format Card pour l'affichage
-  // On force le type "as unknown as Card[]" car il manque des champs techniques (power, life...)
-  // qui ne sont pas stockés en BDD mais dont on n'a pas besoin pour l'affichage simple.
   const myCards = collectionItems.map((item) => ({
     card_id: item.card_id,
-    card_name: item.card_name || "Nom inconnu",
+    card_name: item.card_name ?? "Nom inconnu",
     card_image: item.card_image,
     card_set_id: item.card_set_id,
-    set_id: item.set_id || item.card_set_id?.split("-")[0] || "Unknown",
-    
-    // ✅ CORRECTION 1 : Le nom de la colonne en BDD est 'rarity', pas 'card_rarity'
-    rarity: item.rarity, 
-    
-    // ✅ CORRECTION 2 : On récupère le prix stocké (ou 0 par défaut)
-    market_price: item.market_price || 0,
-    
-    // Champs optionnels ou fallbacks pour satisfaire CardItem si besoin
+    set_id:
+      item.set_id ?? item.card_set_id?.split("-")[0] ?? "Unknown",
+    rarity: item.rarity,
+    market_price: item.market_price ?? 0,
     card_type: item.card_type,
     card_color: item.card_color,
-    
-    // Propriété virtuelle pour l'affichage
-    _quantity: item.quantity 
-  })) as unknown as Card[]; 
+    _quantity: item.quantity,
+  })) as unknown as Card[];
 
-  // Stats simplifiées
-  const totalCardsCount = collectionItems.reduce((acc, curr) => acc + curr.quantity, 0);
-  
-  // Calcul de la valeur totale basé sur le prix stocké
-  const totalValue = collectionItems.reduce((acc, curr) => {
-    return acc + ((curr.market_price || 0) * curr.quantity);
-  }, 0);
+  const totalCardsCount = collectionItems.reduce(
+    (acc, curr) => acc + curr.quantity,
+    0
+  );
+  const totalValue = collectionItems.reduce(
+    (acc, curr) => acc + (curr.market_price ?? 0) * curr.quantity,
+    0
+  );
 
   return (
     <div className="min-h-screen bg-slate-900 pb-20 pt-8">

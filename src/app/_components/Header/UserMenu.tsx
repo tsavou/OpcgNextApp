@@ -21,7 +21,7 @@ export function UserMenu({
         <Link
           href="/profile"
           onClick={onLinkClick}
-          className="group flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-base font-medium text-slate-300 transition-all hover:bg-slate-800/80 hover:text-yellow-400 hover:shadow-lg hover:shadow-yellow-500/10"
+          className="group flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-base font-medium text-slate-300 transition-all hover:bg-slate-800/80 hover:text-yellow-400 hover:shadow-lg"
         >
           <User className="h-5 w-5 transition-transform group-hover:scale-110" />
           {t("profile")}
@@ -29,7 +29,7 @@ export function UserMenu({
         <Link
           href="/settings"
           onClick={onLinkClick}
-          className="group flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-base font-medium text-slate-300 transition-all hover:bg-slate-800/80 hover:text-yellow-400 hover:shadow-lg hover:shadow-yellow-500/10"
+          className="group flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-base font-medium text-slate-300 transition-all hover:bg-slate-800/80 hover:text-yellow-400 hover:shadow-lg"
         >
           <Settings className="h-5 w-5 transition-transform group-hover:rotate-90" />
           {t("settings")}
@@ -49,7 +49,7 @@ export function UserMenu({
     <>
       <Link
         href="/profile"
-        className="group flex cursor-pointer items-center gap-2 px-4 py-2 text-sm font-medium text-slate-300 transition-all hover:bg-slate-800/80 hover:text-yellow-400 hover:shadow-lg hover:shadow-yellow-500/10"
+        className="group flex cursor-pointer items-center gap-2 px-4 py-2 text-sm font-medium text-slate-300 transition-all hover:bg-slate-800/80 hover:text-yellow-400 hover:shadow-lg"
         onClick={onLinkClick}
       >
         <User className="h-4 w-4 transition-transform group-hover:scale-110" />
@@ -57,7 +57,7 @@ export function UserMenu({
       </Link>
       <Link
         href="/settings"
-        className="group flex cursor-pointer items-center gap-2 px-4 py-2 text-sm font-medium text-slate-300 transition-all hover:bg-slate-800/80 hover:text-yellow-400 hover:shadow-lg hover:shadow-yellow-500/10"
+        className="group flex cursor-pointer items-center gap-2 px-4 py-2 text-sm font-medium text-slate-300 transition-all hover:bg-slate-800/80 hover:text-yellow-400 hover:shadow-lg"
         onClick={onLinkClick}
       >
         <Settings className="h-4 w-4 transition-transform group-hover:rotate-90" />
