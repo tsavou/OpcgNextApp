@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Card } from "@/app/cards/types/card";
 import { useAddToCollectionMutation } from "../_hooks/queries/mutations/use-add-to-collection-mutation";
@@ -63,9 +64,11 @@ export function AddToCollectionFormModal({
       >
         <div className="-mt-2 mb-6 flex items-center gap-3 rounded-lg border border-slate-800 bg-slate-800/50 p-3">
           {card.card_image && (
-            <img
+            <Image
               src={card.card_image}
-              alt=""
+              alt={card.card_name ?? ""}
+              width={32}
+              height={44}
               className="h-11 w-8 rounded object-contain shadow-sm"
             />
           )}
