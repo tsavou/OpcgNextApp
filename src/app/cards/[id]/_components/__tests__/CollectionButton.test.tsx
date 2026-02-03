@@ -47,7 +47,9 @@ describe("CollectionButton", () => {
       isFetching: false,
       isPending: false,
       refetch: vi.fn(),
-    } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+    } as unknown as ReturnType<
+      typeof useCollectionQueryModule.useCollectionQuery
+    >);
 
     vi.spyOn(
       useRemoveFromCollectionMutationModule,
@@ -71,7 +73,9 @@ describe("CollectionButton", () => {
         isFetching: false,
         isPending: true,
         refetch: vi.fn(),
-      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+      } as unknown as ReturnType<
+        typeof useCollectionQueryModule.useCollectionQuery
+      >);
 
       renderWithProviders(<CollectionButton card={mockCard} />);
 
@@ -89,11 +93,15 @@ describe("CollectionButton", () => {
         isFetching: false,
         isPending: false,
         refetch: vi.fn(),
-      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+      } as unknown as ReturnType<
+        typeof useCollectionQueryModule.useCollectionQuery
+      >);
 
       renderWithProviders(<CollectionButton card={mockCard} />);
 
-      expect(screen.getByRole("button", { name: "Ajouter" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Ajouter" }),
+      ).toBeInTheDocument();
     });
 
     test("affiche le bouton 'Possédée' quand la carte est dans la collection", () => {
@@ -105,7 +113,9 @@ describe("CollectionButton", () => {
         isFetching: false,
         isPending: false,
         refetch: vi.fn(),
-      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+      } as unknown as ReturnType<
+        typeof useCollectionQueryModule.useCollectionQuery
+      >);
 
       renderWithProviders(<CollectionButton card={mockCard} />);
 
@@ -123,14 +133,18 @@ describe("CollectionButton", () => {
         isFetching: false,
         isPending: false,
         refetch: vi.fn(),
-      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+      } as unknown as ReturnType<
+        typeof useCollectionQueryModule.useCollectionQuery
+      >);
 
       renderWithProviders(<CollectionButton card={mockCard} />);
 
       const button = screen.getByRole("button", { name: "Possédée" });
       await userEvent.hover(button);
 
-      expect(screen.getByRole("button", { name: "Retirer" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Retirer" }),
+      ).toBeInTheDocument();
     });
   });
 
@@ -144,16 +158,16 @@ describe("CollectionButton", () => {
         isFetching: false,
         isPending: false,
         refetch: vi.fn(),
-      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+      } as unknown as ReturnType<
+        typeof useCollectionQueryModule.useCollectionQuery
+      >);
 
       renderWithProviders(<CollectionButton card={mockCard} />);
 
       const addButton = screen.getByRole("button", { name: /ajouter/i });
       await userEvent.click(addButton);
 
-      expect(
-        screen.getByText("Ajouter à la collection"),
-      ).toBeInTheDocument();
+      expect(screen.getByText("Ajouter à la collection")).toBeInTheDocument();
     });
   });
 
@@ -169,7 +183,9 @@ describe("CollectionButton", () => {
         isFetching: false,
         isPending: false,
         refetch: vi.fn(),
-      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+      } as unknown as ReturnType<
+        typeof useCollectionQueryModule.useCollectionQuery
+      >);
 
       renderWithProviders(<CollectionButton card={mockCard} />);
 
@@ -179,7 +195,9 @@ describe("CollectionButton", () => {
       const removeButton = screen.getByRole("button", { name: "Retirer" });
       await userEvent.click(removeButton);
 
-      expect(confirmSpy).toHaveBeenCalledWith("Retirer cette carte de la collection ?");
+      expect(confirmSpy).toHaveBeenCalledWith(
+        "Retirer cette carte de la collection ?",
+      );
       expect(mockRemoveFromCollection).toHaveBeenCalledWith(mockCard);
 
       confirmSpy.mockRestore();
@@ -196,7 +214,9 @@ describe("CollectionButton", () => {
         isFetching: false,
         isPending: false,
         refetch: vi.fn(),
-      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+      } as unknown as ReturnType<
+        typeof useCollectionQueryModule.useCollectionQuery
+      >);
 
       renderWithProviders(<CollectionButton card={mockCard} />);
 
@@ -220,7 +240,9 @@ describe("CollectionButton", () => {
         isFetching: false,
         isPending: false,
         refetch: vi.fn(),
-      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+      } as unknown as ReturnType<
+        typeof useCollectionQueryModule.useCollectionQuery
+      >);
 
       renderWithProviders(<CollectionButton card={mockCard} />);
 
@@ -255,7 +277,9 @@ describe("CollectionButton", () => {
         isFetching: false,
         isPending: false,
         refetch: vi.fn(),
-      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+      } as unknown as ReturnType<
+        typeof useCollectionQueryModule.useCollectionQuery
+      >);
 
       renderWithProviders(<CollectionButton card={mockCard} />);
 

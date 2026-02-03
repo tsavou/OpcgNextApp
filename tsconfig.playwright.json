@@ -1,7 +1,7 @@
 {
-    "compilerOptions": {
-        "types": ["playwright/globals"]
-    },
-    "extends": "./tsconfig.json",
-    "include": ["src/e2e/**/*"]
+  "compilerOptions": {
+    "types": ["playwright/globals"]
+  },
+  "extends": "./tsconfig.json",
+  "include": ["src/e2e/**/*"]
 }

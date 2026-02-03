@@ -5,27 +5,27 @@ import { ReactNode } from "react";
 import { fr as messages } from "../../messages/fr";
 
 function createTestingQueryClient() {
-	return new QueryClient({
-		defaultOptions: {
-			queries: {
-				retry: false,
-			},
-		},
-	});
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  });
 }
 
 function AllProviders({ children }: { children: ReactNode }) {
-	const testingQueryClient = createTestingQueryClient();
+  const testingQueryClient = createTestingQueryClient();
 
-	return (
-		<QueryClientProvider client={testingQueryClient}>
-			<NextIntlClientProvider locale="fr" messages={messages}>
-				{children}
-			</NextIntlClientProvider>
-		</QueryClientProvider>
-	);
+  return (
+    <QueryClientProvider client={testingQueryClient}>
+      <NextIntlClientProvider locale="fr" messages={messages}>
+        {children}
+      </NextIntlClientProvider>
+    </QueryClientProvider>
+  );
 }
 
 export function renderWithProviders(ui: ReactNode, options?: RenderOptions) {
-	return render(ui, { wrapper: AllProviders, ...options });
+  return render(ui, { wrapper: AllProviders, ...options });
 }
