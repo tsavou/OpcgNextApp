@@ -14,9 +14,9 @@ Application web moderne pour gérer votre collection de cartes One Piece Trading
 - **Profil utilisateur** : Gérez vos paramètres et préférences
 
 ### 🤖 Automatisations & IA (Architecture Hybride)
+
 - **Coach Stratégique IA** : Chaque carte ajoutée est analysée par **Google Gemini** (via Make) pour générer un conseil tactique unique affiché directement sur la fiche de la carte.
 - **Notifications Discord** : Alertes en temps réel sur votre serveur communautaire lors de l'ajout de nouvelles cartes via Webhooks.
-
 
 ## 🛠️ Technologies
 
@@ -36,7 +36,7 @@ Application web moderne pour gérer votre collection de cartes One Piece Trading
 
 ## 📋 Prérequis
 
-- Node.js 18+ 
+- Node.js 18+
 - npm, yarn, pnpm ou bun
 - Compte Supabase (pour la base de données et l'authentification)
 - Un compte Make (pour les automatisations)
@@ -44,12 +44,14 @@ Application web moderne pour gérer votre collection de cartes One Piece Trading
 ## 🚦 Installation
 
 1. Clonez le dépôt :
+
 ```bash
 git clone https://github.com/tsavou/OpcgNextApp.git
 cd OpcgNextApp
 ```
 
 2. Installez les dépendances :
+
 ```bash
 npm install
 # ou
@@ -61,13 +63,15 @@ bun install
 ```
 
 3. Configurez les variables d'environnement :
-Créez un fichier `.env.local` à la racine du projet avec les variables suivantes :
+   Créez un fichier `.env.local` à la racine du projet avec les variables suivantes :
+
 ```env
 NEXT_PUBLIC_SUPABASE_URL=votre_url_supabase
 NEXT_PUBLIC_SUPABASE_ANON_KEY=votre_clé_anon_supabase
 ```
 
 4. Lancez le serveur de développement :
+
 ```bash
 npm run dev
 # ou
@@ -113,6 +117,7 @@ next_app/
 ## 🌍 Internationalisation
 
 L'application supporte deux langues :
+
 - Français (par défaut)
 - Anglais
 
@@ -121,17 +126,21 @@ Les traductions sont gérées via `next-intl` et se trouvent dans le dossier `me
 ## 🎨 Personnalisation
 
 ### Configuration Next.js
+
 Les options de configuration se trouvent dans `next.config.ts`, incluant :
+
 - Configuration des images distantes
 - Plugin next-intl
 - Options expérimentales
 
 ### Styles
+
 Les styles globaux sont définis dans `src/app/globals.css` et utilisent Tailwind CSS.
 
 ## 🚢 Déploiement
 
 ### Vercel (recommandé)
+
 Le moyen le plus simple de déployer cette application Next.js est d'utiliser [Vercel](https://vercel.com/new) :
 
 1. Connectez votre dépôt GitHub à Vercel
@@ -139,6 +148,7 @@ Le moyen le plus simple de déployer cette application Next.js est d'utiliser [V
 3. Déployez !
 
 ### Autres plateformes
+
 Consultez la [documentation de déploiement Next.js](https://nextjs.org/docs/app/building-your-application/deploying) pour plus d'informations.
 
 ## 📝 Licence

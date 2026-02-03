@@ -14,7 +14,7 @@ export function CardGrid() {
   const setName = searchParams.get("setName");
 
   const { data: cards } = useCardsSuspenseQuery(setId);
-  const { data: ownedCardIds } = useUserCollectionIds()
+  const { data: ownedCardIds } = useUserCollectionIds();
 
   if (!cards || cards.length === 0) {
     return (
@@ -37,10 +37,10 @@ export function CardGrid() {
         {cards.map((card) => {
           const cardUniqueId = getCardUniqueId(card);
           return (
-            <CardItem 
-              key={cardUniqueId} 
-              card={card} 
-              isOwned={ownedCardIds?.has(cardUniqueId) ?? false} 
+            <CardItem
+              key={cardUniqueId}
+              card={card}
+              isOwned={ownedCardIds?.has(cardUniqueId) ?? false}
             />
           );
         })}

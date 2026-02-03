@@ -4,7 +4,7 @@
   "totalCards": "Cartes Totales",
   "estimatedValue": "Valeur Estimée",
   "emptyTitle": "Votre coffre est vide",
-  "emptyDesc": "Partez à l'aventure dans le catalogue pour trouver vos premières cartes !",  
+  "emptyDesc": "Partez à l'aventure dans le catalogue pour trouver vos premières cartes !",
   "exploreButton": "Explorer les cartes",
   "errorLoadingStats": "Erreur lors du chargement des statistiques",
   "errorLoadingCollection": "Erreur lors du chargement de la collection",

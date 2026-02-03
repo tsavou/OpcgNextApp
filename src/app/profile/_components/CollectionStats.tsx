@@ -65,9 +65,7 @@ export function CollectionStats() {
         <h3 className="mb-6 text-xl font-bold text-white">
           {t("collectionStats")}
         </h3>
-        <p className="text-sm text-red-400">
-          {t("errorLoadingStats")}
-        </p>
+        <p className="text-sm text-red-400">{t("errorLoadingStats")}</p>
       </div>
     );
   }

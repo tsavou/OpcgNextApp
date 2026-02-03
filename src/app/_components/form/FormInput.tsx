@@ -10,24 +10,24 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
   ({ label, error, suffix, className, ...props }, ref) => {
     return (
-      <div className="space-y-1.5 w-full">
-        <label className="text-[10px] uppercase font-bold text-slate-500">
+      <div className="w-full space-y-1.5">
+        <label className="text-[10px] font-bold text-slate-500 uppercase">
           {label}
         </label>
         <div className="relative">
           <input
             ref={ref}
             className={cn(
-              "w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm outline-none transition-colors placeholder:text-slate-600",
+              "w-full rounded-lg border border-slate-700 bg-slate-950 p-2.5 text-sm transition-colors outline-none placeholder:text-slate-600",
               "focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500/20",
               suffix ? "pr-8" : "",
               error && "border-red-500 focus:border-red-500",
-              className
+              className,
             )}
             {...props}
           />
           {suffix && (
-            <span className="absolute right-3 top-2.5 text-slate-500 text-sm pointer-events-none">
+            <span className="pointer-events-none absolute top-2.5 right-3 text-sm text-slate-500">
               {suffix}
             </span>
           )}
@@ -35,6 +35,6 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
         {error && <p className="text-xs text-red-500">{error}</p>}
       </div>
     );
-  }
+  },
 );
 FormInput.displayName = "FormInput";

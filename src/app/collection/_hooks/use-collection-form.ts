@@ -11,7 +11,7 @@ export const CollectionFormSchema = z.object({
   purchase_price: z.preprocess(
     (v) =>
       v === undefined || (typeof v === "number" && Number.isNaN(v)) ? 0 : v,
-    z.number().min(0, "Le prix d'achat doit être positif")
+    z.number().min(0, "Le prix d'achat doit être positif"),
   ),
 });
 

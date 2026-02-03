@@ -14,8 +14,10 @@ export function CardHeader({ card }: CardHeaderProps) {
   return (
     <div className="space-y-3">
       <div>
-        <div className="flex justify-between items-center">
-          <h1 className="mb-2 text-3xl font-bold text-white">{card.card_name}</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="mb-2 text-3xl font-bold text-white">
+            {card.card_name}
+          </h1>
           <CollectionButton card={card} />
         </div>
         <div className="flex flex-wrap items-center gap-2">

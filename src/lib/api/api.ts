@@ -28,10 +28,7 @@ export async function fetchAllCards(): Promise<Card[]> {
   try {
     // D'abord récupérer tous les sets
     // const sets = await fetchAllSets();
-    const sets = [
-      { set_id: "OP-01" },
-      { set_id: "OP-02" },
-    ];
+    const sets = [{ set_id: "OP-01" }, { set_id: "OP-02" }];
     // Ensuite récupérer toutes les cartes de chaque set
     const allCards: Card[] = [];
 

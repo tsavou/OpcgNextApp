@@ -13,13 +13,18 @@ interface ModalProps {
   className?: string;
 }
 
-export function Modal({ isOpen, onClose, title, children, className }: ModalProps) {
+export function Modal({
+  isOpen,
+  onClose,
+  title,
+  children,
+  className,
+}: ModalProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
 
   useEffect(() => {
     if (isOpen) {
@@ -39,33 +44,31 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-      <div 
-        className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity animate-in fade-in duration-200" 
+      <div
+        className="animate-in fade-in absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-200"
         onClick={onClose}
       />
 
-      <div 
+      <div
         className={cn(
-          "relative w-full max-w-lg bg-slate-900 border border-slate-700 rounded-xl shadow-2xl animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]", 
-          className
+          "animate-in zoom-in-95 relative flex max-h-[90vh] w-full max-w-lg flex-col rounded-xl border border-slate-700 bg-slate-900 shadow-2xl duration-200",
+          className,
         )}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-4 border-b border-slate-800 shrink-0">
+        <div className="flex shrink-0 items-center justify-between border-b border-slate-800 p-4">
           <div className="text-lg font-bold text-white">{title}</div>
-          <button 
+          <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+            className="rounded-lg p-2 text-slate-400 transition-colors hover:bg-slate-800 hover:text-white"
           >
-            <X className="w-5 h-5" />
+            <X className="h-5 w-5" />
           </button>
         </div>
 
-        <div className="p-4 overflow-y-auto">
-          {children}
-        </div>
+        <div className="overflow-y-auto p-4">{children}</div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }

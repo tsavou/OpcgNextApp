@@ -11,18 +11,21 @@ export default async function CollectionPage() {
   const t = await getTranslations("collection");
   const supabase = await createClient();
 
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) {
     redirect("/auth/login");
   }
 
   return (
-    <div className="min-h-screen pb-20 pt-8">
+    <div className="min-h-screen pt-8 pb-20">
       <div className="container mx-auto px-4">
-        
         <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-white md:text-4xl">{t("title")}</h1>
+            <h1 className="text-3xl font-bold text-white md:text-4xl">
+              {t("title")}
+            </h1>
             <p className="mt-2 text-slate-400">{t("subtitle")}</p>
           </div>
 

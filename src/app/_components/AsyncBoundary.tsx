@@ -24,7 +24,10 @@ export function AsyncBoundary({
         <ErrorBoundary
           onReset={reset}
           FallbackComponent={(props) => (
-            <ErrorFallback {...props} title={errorTitle ?? t("errorOccurred")} />
+            <ErrorFallback
+              {...props}
+              title={errorTitle ?? t("errorOccurred")}
+            />
           )}
         >
           <Suspense fallback={loadingFallback}>{children}</Suspense>

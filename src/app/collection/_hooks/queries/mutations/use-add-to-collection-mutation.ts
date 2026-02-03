@@ -14,7 +14,13 @@ export function useAddToCollectionMutation() {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: async ({ card, formData }: { card: Card; formData: CollectionFormData }) => {
+    mutationFn: async ({
+      card,
+      formData,
+    }: {
+      card: Card;
+      formData: CollectionFormData;
+    }) => {
       if (!user) {
         router.push("/auth/login");
         return;
@@ -24,9 +30,9 @@ export function useAddToCollectionMutation() {
     },
     onSuccess: (_, variables) => {
       const cardId = getCardUniqueId(variables.card);
-      
+
       queryClient.invalidateQueries({ queryKey: ["collection-item", cardId] });
-      
+
       queryClient.invalidateQueries({ queryKey: ["collection"] });
       queryClient.invalidateQueries({ queryKey: ["collection-items"] });
       queryClient.invalidateQueries({ queryKey: ["collection-stats"] });

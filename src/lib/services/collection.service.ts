@@ -37,7 +37,6 @@ export interface CollectionStats {
   rareCards: number;
 }
 
-
 // ─── Lecture ─────────────────────────────────────────────────────────────
 
 /**
@@ -46,7 +45,7 @@ export interface CollectionStats {
 export async function getCollectionItem(
   client: SupabaseClient,
   userId: string,
-  cardId: string
+  cardId: string,
 ): Promise<CollectionItem | null> {
   const { data, error } = await client
     .from("user_collection")
@@ -65,7 +64,7 @@ export async function getCollectionItem(
  */
 export async function getCollectionCardIds(
   client: SupabaseClient,
-  userId: string
+  userId: string,
 ): Promise<Set<string>> {
   const { data, error } = await client
     .from("user_collection")
@@ -82,7 +81,7 @@ export async function getCollectionCardIds(
  */
 export async function getCollectionStats(
   client: SupabaseClient,
-  userId: string
+  userId: string,
 ): Promise<CollectionStats> {
   const { data: rows, error } = await client
     .from("user_collection")
@@ -103,18 +102,18 @@ export async function getCollectionStats(
   const totalCards = rows.length;
 
   const totalSets = new Set(
-    rows.map((r) => r.set_id).filter((id): id is string => !!id)
+    rows.map((r) => r.set_id).filter((id): id is string => !!id),
   ).size;
 
-  const collectionValue = rows.reduce((acc, r) => acc + (r.market_price ?? 0), 0);
+  const collectionValue = rows.reduce(
+    (acc, r) => acc + (r.market_price ?? 0),
+    0,
+  );
   const rareRarities = ["SR", "SEC", "SP"];
 
   const rareCards = rows.reduce(
-    (acc, r) =>
-      r.rarity && rareRarities.includes(r.rarity)
-        ? acc + 1
-        : acc,
-    0
+    (acc, r) => (r.rarity && rareRarities.includes(r.rarity) ? acc + 1 : acc),
+    0,
   );
 
   return {
@@ -130,9 +129,9 @@ export async function getCollectionStats(
  */
 export async function getCollectionItems(
   client: SupabaseClient,
-  userId: string
+  userId: string,
 ): Promise<CollectionItem[]> {
-  const { data, error } = await client  
+  const { data, error } = await client
     .from("user_collection")
     .select("*")
     .eq("user_id", userId)
@@ -152,9 +151,8 @@ export async function upsertCollectionItem(
   client: SupabaseClient,
   userId: string,
   card: Card,
-  formData: CollectionFormData
+  formData: CollectionFormData,
 ): Promise<CollectionItem> {
-
   const cardId = getCardUniqueId(card);
 
   const payload = {
@@ -189,7 +187,7 @@ export async function upsertCollectionItem(
 export async function deleteCollectionItem(
   client: SupabaseClient,
   userId: string,
-  cardId: string
+  cardId: string,
 ): Promise<void> {
   const { error } = await client
     .from("user_collection")

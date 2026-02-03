@@ -8,7 +8,7 @@ import { useAuth } from "@/app/auth/_hooks/use-auth";
 export function Hero() {
   const t = useTranslations("homePage");
   const { isAuthenticated } = useAuth();
-  
+
   return (
     <section className="relative flex min-h-[500px] w-full bg-slate-900 lg:relative">
       <div className="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-1/2 lg:px-8 xl:px-12">
