@@ -6,6 +6,12 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: ["./src/tests/setup.ts"],
+	exclude: [
+		"**/node_modules/**",
+		"**/dist/**",
+		"**/e2e/**",
+		"**/.{idea,git,cache,output,temp}/**"
+	  ],
     server: {
       deps: {
         // https://github.com/vercel/next.js/issues/77200

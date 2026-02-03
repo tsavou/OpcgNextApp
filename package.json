@@ -10,7 +10,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check --log-level=warn .",
     "test": "vitest --watch",
-    "test:ci": "vitest run"
+    "test:ci": "vitest run",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
