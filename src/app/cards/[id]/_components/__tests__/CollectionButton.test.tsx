@@ -1,81 +1,265 @@
-import { screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach, test } from 'vitest';
-import { CollectionButton } from '../CollectionButton';
-import { renderWithProviders } from '@/tests/utils'; // Import de ton utilitaire
-import { Card } from '@/app/cards/types/card';
+import { describe, expect, vi, beforeEach, test } from "vitest";
+import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { CollectionButton } from "../CollectionButton";
+import { renderWithProviders } from "@/tests/utils";
+import * as useCollectionQueryModule from "@/app/collection/_hooks/queries/use-collection-query";
+import * as useRemoveFromCollectionMutationModule from "@/app/collection/_hooks/queries/mutations/use-remove-from-collection-mutation";
+import type { Card } from "@/app/cards/types/card";
 
-// --- Mocks ---
-
-const mockUseCollectionQuery = vi.fn();
-vi.mock('../../../collection/_hooks/queries/use-collection-query', () => ({
-  useCollectionQuery: (id: string) => mockUseCollectionQuery(id)
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push: vi.fn(), replace: vi.fn(), refresh: vi.fn() }),
 }));
 
-const mockRemoveFromCollection = vi.fn();
-vi.mock('@/app/collection/_hooks/queries/mutations/use-remove-from-collection-mutation', () => ({
-  useRemoveFromCollectionMutation: () => ({
-    mutate: mockRemoveFromCollection,
-    isPending: false
-  })
-}));
+const mockCard: Card = {
+  card_id: "OP01-001",
+  card_name: "Luffy",
+  card_set_id: "001",
+  card_image: "https://example.com/OP01-001.jpg",
+  card_image_id: "OP01-001",
+  rarity: "R",
+  set_name: "Romance Dawn",
+  set_id: "OP01",
+  card_type: "CHARACTER",
+  card_cost: "4",
+  card_power: "5000",
+  counter_amount: 1000,
+  attribute: "Strike",
+  card_color: "RED",
+  card_text: "Test",
+  sub_types: null,
+  life: null,
+  inventory_price: 10,
+  market_price: 15,
+  date_scraped: "2024-01-01",
+};
 
-vi.mock('@/app/collection/_components/AddToCollectionFormModal', () => ({
-  AddToCollectionFormModal: ({ children }: { children: React.ReactNode }) => <div>{children}</div>
-}));
+describe("CollectionButton", () => {
+  const mockRemoveFromCollection = vi.fn();
 
-vi.mock('../../helpers/card', () => ({
-  getCardUniqueId: () => 'OP01-001'
-}));
-
-const mockCard = { card_id: 'OP01-001', card_name: 'Luffy', card_set_id: 'OP01', card_image: 'https://example.com/image.jpg', card_image_id: '123', rarity: 'COMMON', set_name: 'One Piece', set_id: 'OP01', card_type: 'CHARACTER', card_cost: '1', card_power: '100', counter_amount: 0, attribute: 'ONE PIECE', card_color: 'BLUE', card_text: 'Luffy is a pirate', sub_types: 'PIRATE', life: '100', inventory_price: 100, market_price: 100, date_scraped: '2021-01-01' } as unknown as Card;
-
-describe('CollectionButton', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.spyOn(useCollectionQueryModule, "useCollectionQuery").mockReturnValue({
+      data: null,
+      isLoading: false,
+      isError: false,
+      error: null,
+      isFetching: false,
+      isPending: false,
+      refetch: vi.fn(),
+    } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+
+    vi.spyOn(
+      useRemoveFromCollectionMutationModule,
+      "useRemoveFromCollectionMutation",
+    ).mockReturnValue({
+      mutate: mockRemoveFromCollection,
+      isPending: false,
+      reset: vi.fn(),
+    } as unknown as ReturnType<
+      typeof useRemoveFromCollectionMutationModule.useRemoveFromCollectionMutation
+    >);
   });
 
-  test('affiche le squelette de chargement', () => {
-    mockUseCollectionQuery.mockReturnValue({ data: null, isLoading: true });
+  describe("affichage selon l'état de la collection", () => {
+    test("affiche un skeleton pendant le chargement", () => {
+      vi.spyOn(useCollectionQueryModule, "useCollectionQuery").mockReturnValue({
+        data: undefined,
+        isLoading: true,
+        isError: false,
+        error: null,
+        isFetching: false,
+        isPending: true,
+        refetch: vi.fn(),
+      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
 
-    const { container } = renderWithProviders(<CollectionButton card={mockCard} />);
-    
-    expect(container.getElementsByClassName('animate-pulse').length).toBeGreaterThan(0);
+      renderWithProviders(<CollectionButton card={mockCard} />);
+
+      expect(
+        document.querySelector(".animate-pulse.rounded-lg.bg-slate-800"),
+      ).toBeInTheDocument();
+    });
+
+    test("affiche le bouton 'Ajouter' quand la carte n'est pas dans la collection", () => {
+      vi.spyOn(useCollectionQueryModule, "useCollectionQuery").mockReturnValue({
+        data: null,
+        isLoading: false,
+        isError: false,
+        error: null,
+        isFetching: false,
+        isPending: false,
+        refetch: vi.fn(),
+      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+
+      renderWithProviders(<CollectionButton card={mockCard} />);
+
+      expect(screen.getByRole("button", { name: "Ajouter" })).toBeInTheDocument();
+    });
+
+    test("affiche le bouton 'Possédée' quand la carte est dans la collection", () => {
+      vi.spyOn(useCollectionQueryModule, "useCollectionQuery").mockReturnValue({
+        data: { id: "1", card_id: "OP01-001" } as never,
+        isLoading: false,
+        isError: false,
+        error: null,
+        isFetching: false,
+        isPending: false,
+        refetch: vi.fn(),
+      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+
+      renderWithProviders(<CollectionButton card={mockCard} />);
+
+      expect(
+        screen.getByRole("button", { name: "Possédée" }),
+      ).toBeInTheDocument();
+    });
+
+    test("affiche 'Retirer' au survol quand la carte est possédée", async () => {
+      vi.spyOn(useCollectionQueryModule, "useCollectionQuery").mockReturnValue({
+        data: { id: "1", card_id: "OP01-001" } as never,
+        isLoading: false,
+        isError: false,
+        error: null,
+        isFetching: false,
+        isPending: false,
+        refetch: vi.fn(),
+      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+
+      renderWithProviders(<CollectionButton card={mockCard} />);
+
+      const button = screen.getByRole("button", { name: "Possédée" });
+      await userEvent.hover(button);
+
+      expect(screen.getByRole("button", { name: "Retirer" })).toBeInTheDocument();
+    });
   });
 
-  test('affiche le bouton "Ajouter" quand la carte n\'est pas dans la collection', () => {
-    mockUseCollectionQuery.mockReturnValue({ data: null, isLoading: false });
+  describe("ouverture de la modale d'ajout", () => {
+    test("ouvre la modale d'ajout au clic sur le bouton Ajouter", async () => {
+      vi.spyOn(useCollectionQueryModule, "useCollectionQuery").mockReturnValue({
+        data: null,
+        isLoading: false,
+        isError: false,
+        error: null,
+        isFetching: false,
+        isPending: false,
+        refetch: vi.fn(),
+      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
 
-    renderWithProviders(<CollectionButton card={mockCard} />);
+      renderWithProviders(<CollectionButton card={mockCard} />);
 
-    // On cherche le VRAI texte défini dans tes fichiers de traduction (collection.add)
-    expect(screen.getByText('Ajouter')).toBeInTheDocument();
-    
-    // On vérifie que le texte "Possédée" n'est pas là
-    expect(screen.queryByText('Possédée')).not.toBeInTheDocument();
+      const addButton = screen.getByRole("button", { name: /ajouter/i });
+      await userEvent.click(addButton);
+
+      expect(
+        screen.getByText("Ajouter à la collection"),
+      ).toBeInTheDocument();
+    });
   });
 
-  // CAS 3 : Carte POSSÉDÉE -> Doit afficher "Possédée" et permettre la suppression
-  test('affiche le statut "Possédée" et gère la suppression', () => {
-    // Simulation : l'API renvoie un item, donc je possède la carte
-    mockUseCollectionQuery.mockReturnValue({ data: { id: 'item-123' }, isLoading: false });
+  describe("suppression de la collection", () => {
+    test("affiche confirm et appelle removeFromCollection au clic sur Retirer", async () => {
+      const confirmSpy = vi.spyOn(window, "confirm").mockReturnValue(true);
 
-    renderWithProviders(<CollectionButton card={mockCard} />);
+      vi.spyOn(useCollectionQueryModule, "useCollectionQuery").mockReturnValue({
+        data: { id: "1", card_id: "OP01-001" } as never,
+        isLoading: false,
+        isError: false,
+        error: null,
+        isFetching: false,
+        isPending: false,
+        refetch: vi.fn(),
+      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
 
-    const button = screen.getByRole('button');
+      renderWithProviders(<CollectionButton card={mockCard} />);
 
-    // 1. Vérification état initial
-    expect(screen.getByText('Possédée')).toBeInTheDocument();
+      const button = screen.getByRole("button", { name: "Possédée" });
+      await userEvent.hover(button);
 
-    // 2. Interaction : Survol (Hover)
-    fireEvent.mouseEnter(button);
-    // Au survol, le texte doit changer pour "Retirer" (collection.remove)
-    expect(screen.getByText('Retirer')).toBeInTheDocument();
+      const removeButton = screen.getByRole("button", { name: "Retirer" });
+      await userEvent.click(removeButton);
 
-    // 3. Interaction : Clic pour supprimer
-    fireEvent.click(button);
+      expect(confirmSpy).toHaveBeenCalledWith("Retirer cette carte de la collection ?");
+      expect(mockRemoveFromCollection).toHaveBeenCalledWith(mockCard);
 
-    // Vérifications
-    expect(window.confirm).toHaveBeenCalled(); // Vérifie que la confirm a pop
-    expect(mockRemoveFromCollection).toHaveBeenCalledWith(mockCard); // Vérifie l'appel API
+      confirmSpy.mockRestore();
+    });
+
+    test("n'appelle pas removeFromCollection si l'utilisateur annule le confirm", async () => {
+      vi.spyOn(window, "confirm").mockReturnValue(false);
+
+      vi.spyOn(useCollectionQueryModule, "useCollectionQuery").mockReturnValue({
+        data: { id: "1", card_id: "OP01-001" } as never,
+        isLoading: false,
+        isError: false,
+        error: null,
+        isFetching: false,
+        isPending: false,
+        refetch: vi.fn(),
+      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+
+      renderWithProviders(<CollectionButton card={mockCard} />);
+
+      const button = screen.getByRole("button", { name: "Possédée" });
+      await userEvent.hover(button);
+
+      const removeButton = screen.getByRole("button", { name: "Retirer" });
+      await userEvent.click(removeButton);
+
+      expect(mockRemoveFromCollection).not.toHaveBeenCalled();
+    });
+
+    test("peut aussi déclencher la suppression en cliquant sur Possédée (même handler)", async () => {
+      const confirmSpy = vi.spyOn(window, "confirm").mockReturnValue(true);
+
+      vi.spyOn(useCollectionQueryModule, "useCollectionQuery").mockReturnValue({
+        data: { id: "1", card_id: "OP01-001" } as never,
+        isLoading: false,
+        isError: false,
+        error: null,
+        isFetching: false,
+        isPending: false,
+        refetch: vi.fn(),
+      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+
+      renderWithProviders(<CollectionButton card={mockCard} />);
+
+      const ownedButton = screen.getByRole("button", { name: "Possédée" });
+      await userEvent.click(ownedButton);
+
+      expect(confirmSpy).toHaveBeenCalled();
+      expect(mockRemoveFromCollection).toHaveBeenCalledWith(mockCard);
+
+      confirmSpy.mockRestore();
+    });
+  });
+
+  describe("état de chargement pendant la suppression", () => {
+    test("affiche un loader pendant la suppression", () => {
+      vi.spyOn(
+        useRemoveFromCollectionMutationModule,
+        "useRemoveFromCollectionMutation",
+      ).mockReturnValue({
+        mutate: mockRemoveFromCollection,
+        isPending: true,
+        reset: vi.fn(),
+      } as unknown as ReturnType<
+        typeof useRemoveFromCollectionMutationModule.useRemoveFromCollectionMutation
+      >);
+
+      vi.spyOn(useCollectionQueryModule, "useCollectionQuery").mockReturnValue({
+        data: { id: "1", card_id: "OP01-001" } as never,
+        isLoading: false,
+        isError: false,
+        error: null,
+        isFetching: false,
+        isPending: false,
+        refetch: vi.fn(),
+      } as unknown as ReturnType<typeof useCollectionQueryModule.useCollectionQuery>);
+
+      renderWithProviders(<CollectionButton card={mockCard} />);
+
+      expect(document.querySelector(".animate-spin")).toBeInTheDocument();
+    });
   });
 });
