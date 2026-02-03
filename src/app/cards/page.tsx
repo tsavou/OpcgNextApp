@@ -10,14 +10,14 @@ export default function CardsPage() {
   const t = useTranslations("homePage");
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-slate-900">
       <Suspense
-        fallback={<div className="h-40 w-full animate-pulse bg-gray-200" />}
+        fallback={<div className="h-40 w-full animate-pulse bg-slate-800" />}
       >
         <SetBanner />
       </Suspense>
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
           <AsyncBoundary
             loadingFallback={<CardGridSkeleton />}

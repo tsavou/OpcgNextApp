@@ -22,7 +22,7 @@ export function CardImageSection({ card }: CardImageSectionProps) {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-gray-400">
+          <div className="flex h-full items-center justify-center text-slate-400">
             <span>{t("noImage")}</span>
           </div>
         )}

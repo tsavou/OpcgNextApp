@@ -1,0 +1,19 @@
+{
+  "title": "Paramètres",
+  "subtitle": "Gérez vos préférences et vos paramètres de compte",
+  "accountTitle": "Informations du compte",
+  "accountSubtitle": "Vos informations personnelles",
+  "readOnly": "Lecture seule",
+  "preferencesTitle": "Préférences",
+  "preferencesSubtitle": "Personnalisez votre expérience",
+  "language": "Langue",
+  "languageDescription": "Choisissez votre langue préférée",
+  "notifications": "Notifications",
+  "notificationsDescription": "Gérez vos préférences de notification",
+  "securityTitle": "Sécurité",
+  "securitySubtitle": "Gérez la sécurité de votre compte",
+  "changePassword": "Changer le mot de passe",
+  "changePasswordDescription": "Mettez à jour votre mot de passe pour plus de sécurité",
+  "logoutDescription": "Déconnectez-vous de votre compte",
+  "comingSoon": "Bientôt disponible"
+}

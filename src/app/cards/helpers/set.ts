@@ -1,5 +1,8 @@
 export function getSetImage(setId: string) {
-  const id = String(setId).toLowerCase().replace("-", "");
+  // OP14-EB04 → garder uniquement OP14 pour l'URL
+  const baseId = setId.includes("EB04") ? setId.split("-")[0] : setId;
+
+  const id = String(baseId).toLowerCase().replace("-", "");
 
   return `https://en.onepiece-cardgame.com/images/top/pickupbnr/bnr_products_${id}.png`;
 }
@@ -14,11 +17,12 @@ export function getSetColor(setId: string) {
     "OP-06": "from-stone-600 to-stone-500",
     "OP-07": "from-yellow-300 to-yellow-200",
     "OP-08": "from-teal-800 to-teal-700",
-    "OP-09": "from-gray-900 to-gray-800",
+    "OP-09": "from-gray-950 to-gray-850",
     "OP-10": "from-indigo-900 to-indigo-800",
     "OP-11": "from-pink-900 to-pink-800",
     "OP-12": "from-green-800 to-green-700",
     "OP-13": "from-red-700 to-red-600",
+    "OP14-EB04": "from-indigo-950 to-indigo-800",
 
     "EB-01": "from-pink-200 to-pink-100",
     "EB-02": "from-orange-100 to-orange-50",

@@ -1,0 +1,17 @@
+{
+  "title": "My Profile",
+  "subtitle": "Manage your information and view your collection statistics",
+  "memberSince": "Member since",
+  "notAvailable": "N/A",
+  "collectionStats": "Collection Statistics",
+  "totalCards": "Total Cards",
+  "inYourCollection": "In your collection",
+  "collectedSets": "Collected Sets",
+  "differentSets": "Different sets",
+  "estimatedValue": "Estimated Value",
+  "marketPrice": "Market price",
+  "rareCards": "Rare Cards",
+  "rareCardsSubtitle": "SR, SEC, SP",
+  "emptyCollection": "Start adding cards to your collection to see your statistics!",
+  "errorLoadingStats": "Error loading statistics"
+}

@@ -11,7 +11,7 @@ export function SetItem({ set }: SetItemProps) {
   return (
     <Link
       href={`/cards?setId=${encodeURIComponent(set.set_id)}&setName=${encodeURIComponent(set.set_name)}`}
-      className={`group bg-gradient-to-br ${getSetColor(set.set_id)} relative aspect-[8/3] overflow-hidden rounded-xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl`}
+      className={`group cursor-pointer bg-gradient-to-br ${getSetColor(set.set_id)} relative aspect-[8/3] overflow-hidden rounded-xl transition-all duration-300 hover:scale-105 hover:hover:shadow-[0_0_20px_rgba(255,255,255,0.5)]`}
     >
       <Image
         src={getSetImage(set.set_id)}

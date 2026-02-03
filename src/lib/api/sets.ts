@@ -1,10 +1,9 @@
 import { Card, CardSet } from "@/app/cards/types/card";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export async function fetchAllSets(): Promise<CardSet[]> {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/allSets/`,
-    );
+    const response = await fetch(`${API_BASE_URL}/allSets/`);
 
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);
@@ -20,9 +19,7 @@ export async function fetchAllSets(): Promise<CardSet[]> {
 
 export async function fetchSetCards(setId: string): Promise<Card[]> {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sets/${setId}/`,
-    );
+    const response = await fetch(`${API_BASE_URL}/sets/${setId}/`);
 
     if (!response.ok) {
       throw new Error(`Erreur HTTP: ${response.status}`);

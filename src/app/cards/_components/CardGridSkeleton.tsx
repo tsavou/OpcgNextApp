@@ -6,7 +6,7 @@ export function CardGridSkeleton() {
       {Array.from({ length: 20 }).map((_, index) => (
         <div
           key={index}
-          className="overflow-hidden rounded-lg bg-white shadow-md"
+          className="overflow-hidden rounded-lg border border-slate-700 bg-slate-800/50 shadow-md backdrop-blur-sm"
         >
           <Skeleton aspectRatio="3/4" className="relative" />
 

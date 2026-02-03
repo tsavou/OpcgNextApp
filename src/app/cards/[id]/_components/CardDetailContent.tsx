@@ -1,6 +1,6 @@
 "use client";
 
-import { useCardSuspenseQuery } from "../../hooks/queries/useCardSuspenseQuery";
+import { useCardSuspenseQuery } from "../../_hooks/queries/useCardSuspenseQuery";
 import { Card } from "../../types/card";
 import { getCardUniqueId } from "../../helpers/card";
 import { CardBreadcrumb } from "./CardBreadcrumb";
@@ -9,6 +9,7 @@ import { CardHeader } from "./CardHeader";
 import { CardPricing } from "./CardPricing";
 import { CardVariants } from "./CardVariants";
 import { useSearchParams } from "next/navigation";
+import { AiStrategyTip } from "./AiStrategyTip";
 
 export function CardDetailContent({ cardSetId }: { cardSetId: string }) {
   const { data: cards } = useCardSuspenseQuery(cardSetId);
@@ -29,7 +30,10 @@ export function CardDetailContent({ cardSetId }: { cardSetId: string }) {
         <CardBreadcrumb card={mainCard} />
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          <CardImageSection card={mainCard} />
+          <div className="flex flex-col gap-6">
+            <CardImageSection card={mainCard} />
+            <AiStrategyTip cardId={cardUniqueId ?? ""} />
+          </div>
 
           <div className="space-y-6">
             <CardHeader card={mainCard} />

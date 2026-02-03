@@ -8,7 +8,7 @@ export function SetGridSkeleton() {
           key={i}
           height={160}
           rounded="xl"
-          className="bg-gradient-to-br from-gray-200 to-gray-300"
+          className="bg-gradient-to-br from-slate-700 to-slate-800"
         />
       ))}
     </div>

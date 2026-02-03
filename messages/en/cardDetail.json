@@ -11,5 +11,6 @@
   "setLabel": "Set:",
   "startingFrom": "Starting from:",
   "noCardsFound": "No cards found",
-  "noCardsFoundForSet": "No cards found for set {setId} ({setName})"
+  "noCardsFoundForSet": "No cards found for set {setId} ({setName})",
+  "errorLoadingCard": "Error loading card {id}"
 }
